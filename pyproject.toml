@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+[project]
+name = "GameBox"
+version = "0.1.2"
+authors = [
+  { name="Sam Fertig", email="sfertig007@gmail.com" },
+]
+description = "GameBox is a beginner-friendly Python package built on top of pygame, designed to make 2D game development faster and easier. It provides ready-to-use modules, utilities, and abstractions that let new developers create polished games without needing advanced coding knowledge—while still offering the flexibility for experienced coders to customize and extend."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
