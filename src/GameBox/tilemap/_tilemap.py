@@ -4,11 +4,13 @@ import numpy as np
 from ..basics._net import Global
 
 class TileMap:
-    def __init__(self, tileSet: str, tileDim: tuple, mapDim: tuple, mapFill: int, offset: tuple):
+    def __init__(self, tileSet: str, tileDim: tuple, tileScale: float, mapDim: tuple, mapFill: int, offset: tuple):
         self.tilesetFile = tileSet
-        self.tileDim = tileDim
+        self.tileDim = (tileDim[0] * tileScale, tileDim[1] * tileScale)
         self.mapDim = mapDim
         self.offset = offset
+        self.tilescale = tileScale
+        self.orginDim = tileDim
 
         Global.game.objs.append(self)
 
@@ -26,10 +28,23 @@ class TileMap:
             for x in range(0, tileset_w, tile_w):
                 tile = pygame.Surface(tileDim, pygame.SRCALPHA)
                 tile.blit(tileset, (0, 0), (x, y, tile_w, tile_h))
-                self.tiles[tile_id] = tile
+                self.tiles[tile_id] = pygame.transform.scale(tile, self.tileDim)
                 tile_id += 1
 
         print(f"tiles: {self.tiles}")
 
+    
+
+    def __private_loadMap(self, map: np.array):
+        self.map = map
+
     def update(self):
-        pass
+        self.draw_tiles()
+
+    def draw_tiles(self):
+        for y in range(self.mapDim[1]):
+            for x in range(self.mapDim[0]):
+                tile = self.tiles[self.map[y][x]]
+                mx = (x * self.tileDim[0] + self.offset[0]) - Global.cam.x
+                my = (y * self.tileDim[1] + self.offset[1]) - Global.cam.y
+                Global.screen.blit(tile, (mx, my))

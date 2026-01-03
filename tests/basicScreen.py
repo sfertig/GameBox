@@ -10,7 +10,7 @@ cam = Cammera()
 player = Player((width / 2, 375), (50, 50), "green", False)
 player.add_physics(1.0, 3.0, 16, 7.0, 0.5)
 
-map = TileMap("tests/levelTiles.png", (16, 16), (25, 25), 0, (0, 0))
+map = TileMap("tests/levelTiles.png", (16, 16), 5, (25, 25), 10, (0, 0))
 
 
 cam.set_follow_target(player)
