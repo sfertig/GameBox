@@ -25,7 +25,7 @@ while running:
 
     game.update(60)
 
-    keys = pygame.key.get_pressed()
+    print(Keys.is_pressed(Keys.a))
     
 
 pygame.quit()
