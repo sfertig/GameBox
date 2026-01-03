@@ -1,5 +1,6 @@
 import pygame
 import numpy as np
+import json
 
 from ..basics._net import Global
 
@@ -33,7 +34,10 @@ class TileMap:
 
         print(f"tiles: {self.tiles}")
 
-    
+    def load_map_from_json(self, filePath: str):
+        with open(filePath, "r") as f:
+            data = json.load(f)
+        self.__private_loadMap(np.array(data))
 
     def __private_loadMap(self, map: np.array):
         self.map = map
