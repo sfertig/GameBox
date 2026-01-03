@@ -19,10 +19,12 @@ class _global_:
 
         #objects
         self.player = self._player()
+        self.tilemap: object = None
 
     class _player:
         def __init__(self):
             self.pos: tuple = None
+            self.player: object = None
 
 
 

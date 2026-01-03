@@ -28,7 +28,9 @@ class Game:
 
 
     def update(self, frame_rate=60):
+        #clear collisions
         Global.collisions.clear()
+
         Global.dt = Global.clock.tick(frame_rate) / 1000.0
         Global.screen.fill(Global.bgColor)
         player = None

@@ -28,5 +28,5 @@ while running:
     game.update(60)
 
     
-game.quit()
+#game.quit()
 pygame.quit()

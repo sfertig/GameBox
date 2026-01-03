@@ -16,6 +16,7 @@ class Player:
         
         Global.game.objs.append(self)
         Global.player.pos = pos
+        Global.player.player = self
 
 
     def add_physics(self, speed: float = 1.0, gravity: float = 0.0, jump: float = 10.0, maxV: float = 10.0, airRes: float = 0.2):
