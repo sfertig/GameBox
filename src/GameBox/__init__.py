@@ -15,6 +15,7 @@ from .basics._shapes import Rect
 from .player._player import Player
 from .basics.utils import clamp, moveTward, zeroOut
 from .tilemap._tilemap import TileMap
+from.helpers._input import Keys
 
 
 __all__ = [
@@ -26,5 +27,6 @@ __all__ = [
     "moveTward",
     "zeroOut",
     "TileMap",
+    "Keys",
 ]
 
