@@ -5,6 +5,8 @@ width, height = 800, 600
 game = Game(width, height, "blue", "First Game!")
 win = game.get_screen()
 
+Keys.init()
+
 cam = Cammera()
 
 player = Player((width / 2, 375), (50, 50), "green", False)
@@ -25,7 +27,6 @@ while running:
 
     game.update(60)
 
-    print(Keys.is_pressed(Keys.a))
     
-
+game.quit()
 pygame.quit()

@@ -5,7 +5,6 @@ from ..basics._net import Global
 
 class _keys:
     def __init__(self):
-        Global.game.objs.append(self)
 
         #alphabet
         self.a = pygame.K_a
@@ -60,7 +59,8 @@ class _keys:
         self.right = pygame.K_RIGHT
 
         #mouse
-        self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
+        self.mouse_x, self.mouse_y = 0, 0
+    def init(self): Global.game.objs.append(self)
 
     def is_pressed(self, key): return pygame.key.get_pressed()[key]
 

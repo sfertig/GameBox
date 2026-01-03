@@ -4,9 +4,12 @@ import json
 
 from ..basics._net import Global
 
+from ._collisionDef import _tileCollisionDefs
+
 class TileMap:
     def __init__(self, tileSet: str, tileDim: tuple, tileScale: float, mapDim: tuple, mapFill: int, offset: tuple):
         self.tilesetFile = tileSet
+        self.mapFile = None
         self.tileDim = (tileDim[0] * tileScale, tileDim[1] * tileScale)
         self.mapDim = mapDim
         self.offset = offset
@@ -14,6 +17,8 @@ class TileMap:
         self.orginDim = tileDim
 
         Global.game.objs.append(self)
+
+        self.collisionShapes = _tileCollisionDefs(self.tileDim)
 
         #map, tile splitting, ect
         #--create map
@@ -37,10 +42,11 @@ class TileMap:
     def load_map_from_json(self, filePath: str):
         with open(filePath, "r") as f:
             data = json.load(f)
-        self.__private_loadMap(np.array(data))
+        self.__private_loadMap(filePath, np.array(data))
 
-    def __private_loadMap(self, map: np.array):
+    def __private_loadMap(self, path: str, map: np.array):
         self.map = map
+        self.mapFile = path
 
     def update(self):
         self.draw_tiles()
@@ -51,4 +57,12 @@ class TileMap:
                 tile = self.tiles[self.map[y][x]]
                 mx = (x * self.tileDim[0] + self.offset[0]) - Global.cam.x
                 my = (y * self.tileDim[1] + self.offset[1]) - Global.cam.y
+                if mx < -self.tileDim[0] or mx > Global.screenDim[0] or my < -self.tileDim[1] or my > Global.screenDim[1]: continue
                 Global.screen.blit(tile, (mx, my))
+
+    def _quit(self):
+        #save map
+        if self.mapFile is not None:
+            print('tilemap saved')
+            with open(self.mapFile, "w") as f:
+                json.dump(self.map.tolist(), f)

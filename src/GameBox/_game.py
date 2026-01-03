@@ -26,6 +26,7 @@ class Game:
         Global.game = self
         self.objs = []
 
+
     def update(self, frame_rate=60):
         Global.collisions.clear()
         Global.dt = Global.clock.tick(frame_rate) / 1000.0
@@ -42,5 +43,8 @@ class Game:
     
     def quit(self):
         #will save files later
-        pass
+        for obj in self.objs:
+            if hasattr(obj, "_quit") and callable(obj._quit):
+                obj._quit()
+
 
