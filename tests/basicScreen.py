@@ -1,5 +1,6 @@
 from src.GameBox import *
 import pygame
+import os
 
 width, height = 800, 600
 game = Game(width, height, "blue", "First Game!")
@@ -15,7 +16,8 @@ player.add_physics(1.0, 3.0, 16, 7.0, 0.5)
 map = TileMap("tests/levelTiles.png", (16, 16), 5, (25, 25), 10, (0, 0))
 map.load_map_from_json("tests/testMap.json")
 
-#cam.set_follow_target(player)
+cam.set_follow_target(player)
+#cam.move(-50, -50)
 
 running = True
 while running:
@@ -30,3 +32,4 @@ while running:
     
 #game.quit()
 pygame.quit()
+os.system('cls')

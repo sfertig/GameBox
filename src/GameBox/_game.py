@@ -1,6 +1,7 @@
 import pygame
 import numpy as np
 
+
 from .basics._net import Global
 from .player._player import Player
 
