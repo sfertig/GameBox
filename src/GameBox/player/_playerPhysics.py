@@ -37,9 +37,7 @@ class _playerPhysics:
         x, y = self.player.x + self.vx, self.player.y + self.vy
 
         #basic object collisions
-        # X-axis collisions
         x, y = self.collisionLogic(Global.collisions, x, y)
-        x, y = self.tileMapCollision(x, y)
 
         return x, y
     
@@ -65,52 +63,6 @@ class _playerPhysics:
                     self.vy = 0
 
         return x, y
-    
-    def tileMapCollision(self, x, y):
-        # No tilemap? just return original coordinates
-        if Global.tilemap is None:
-            return x, y
-
-        tiles = []
-
-        # Calculate which tile the player is inside
-        px = x // Global.tilemap.tileDim[0]
-        py = y // Global.tilemap.tileDim[1]
-
-        collisions = []
-
-        # Loop through 3x3 neighborhood around the player
-        for i in range(-1, 2):
-            for j in range(-1, 2):
-                ny = int(py + i)
-                nx = int(px + j)
-
-                # Skip out-of-bounds tiles
-                if ny < 0 or ny >= Global.tilemap.map.shape[0] or nx < 0 or nx >= Global.tilemap.map.shape[1]:
-                    continue
-
-                tile = Global.tilemap.map[ny][nx]
-
-                # Check if this tile has a collision shape
-                if str(tile) in Global.tilemap.collisionDict:
-                    rectshape = Global.tilemap.collisionDict[str(tile)]
-                    rect = getattr(Global.tilemap.collisionShapes, rectshape).copy()
-
-                    # Position rect correctly in the world
-                    rect.x += (nx * Global.tilemap.tileDim[0] + Global.tilemap.offset[0]) - Global.cam.x
-                    rect.y += (ny * Global.tilemap.tileDim[1] + Global.tilemap.offset[1]) - Global.cam.y
-
-                    collisions.append(rect)
-
-                    # Debug: draw each collision rect
-                    pygame.draw.rect(Global.screen, (255, 0, 0), rect)
-
-        # Use your existing collision logic to resolve collisions
-        x, y = self.collisionLogic(collisions, x, y)
-
-        return x, y
-
-
 
 
     

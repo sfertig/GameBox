@@ -11,6 +11,7 @@ class TileMap:
         self.tilesetFile = tileSet
         self.mapFile = None
         self.tileDim = (tileDim[0] * tileScale, tileDim[1] * tileScale)
+        self.tileDim = (self.tileDim[0] * Global.cam.scale, self.tileDim[1] * Global.cam.scale)
         self.mapDim = mapDim
         self.offset = offset
         self.tilescale = tileScale
