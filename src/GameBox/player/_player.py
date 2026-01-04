@@ -42,3 +42,11 @@ class Player:
 
     def platforming_movement(self):
         self.physics.platforming_movement()
+
+    def set_tilemap_sample(self, sample: int = 10):
+        """
+        Sets the sample size for player physics collisions. 
+        Is the radius of tiles that will be used to get tilemap collisions around player. Note: 
+        The larger the sample size the longer it may take to calculate collisions per frame.
+        """
+        self.physics.sample = sample
