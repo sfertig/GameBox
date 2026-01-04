@@ -32,12 +32,12 @@ class _playerPhysics:
             Global.cam.move(self.vx, self.vy)
             
 
-
     def check_collisions(self):
         x, y = self.player.x + self.vx, self.player.y + self.vy
 
         #basic object collisions
         x, y = self.collisionLogic(Global.collisions, x, y)
+        x, y = self.tilemap_collisions(x, y)
 
         return x, y
     
@@ -63,6 +63,56 @@ class _playerPhysics:
                     self.vy = 0
 
         return x, y
+    
+    def tilemap_collisions(self, x, y):
+        if Global.tilemap is None:
+            return x, y
+        
+        #get player reletive tilemap  pos
+        px = int((x - Global.tilemap.offset[0]) / Global.tilemap.tileDim[0])
+        py = int((y - Global.tilemap.offset[1]) / Global.tilemap.tileDim[1])
+
+        #draw collision rect
+        #print(f"px: {px}, py: {py}")
+        rect = pygame.Rect(px , py, self.player.dim[0], self.player.dim[1])
+        pygame.draw.rect(Global.screen, "red", rect)
+        pygame.display.update(rect)
+
+        #check if player is on tilemap
+        if px < 0 or px >= Global.tilemap.mapDim[0] or py < 0 or py >= Global.tilemap.mapDim[1]:
+            return x, y
+        #get collision rects around player
+        collisions: list[pygame.Rect] = []
+        for tx in range(px-3, px + 3):
+            for ty in range(py-3, py + 3):
+                nx = int(px + tx)
+                ny = int(py + ty)
+                #if tile is on map
+                if nx < 0 or nx >= Global.tilemap.mapDim[0] or ny < 0 or ny >= Global.tilemap.mapDim[1]:
+                    continue
+                #if tile has defined collision shape
+                tile = str(Global.tilemap.map[ny][nx])
+                if tile not in Global.tilemap.collisionDict: continue
+
+                #get collision shape 
+                rectshape = Global.tilemap.collisionDict[str(tile)]
+                rect = getattr(Global.tilemap.collisionShapes, rectshape).copy()
+
+                # Position rect correctly in the world
+                rect.x += (nx * Global.tilemap.tileDim[0] + Global.tilemap.offset[0]) - Global.cam.x
+                rect.y += (ny * Global.tilemap.tileDim[1] + Global.tilemap.offset[1]) - Global.cam.y
+
+                collisions.append(rect)
+
+        #DEBUG: draw collision rects
+        for rect in collisions:
+            pygame.draw.rect(Global.screen, (255, 0, 0), rect, 1)
+
+        #check collisions
+        x, y = self.collisionLogic(collisions, x, y)
+
+        return x, y
+
 
 
     

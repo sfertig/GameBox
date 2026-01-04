@@ -5,7 +5,7 @@ GameBox makes it easy to build 2D games with graphics, sound, and UI in just a f
 """
 
 
-__version__ = "0.0.3"
+__version__ = "0.1.3"
 __author__ = "Sam Fertig"
 
 #____imports____

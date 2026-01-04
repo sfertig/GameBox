@@ -10,6 +10,11 @@ class _tileCollisionDefs:
         self.halfTop = pygame.Rect(0, 0, width, height / 2)
         self.halfBottom = pygame.Rect(0, height / 2, width, height / 2)
 
+        self.topRight = pygame.Rect(width / 2, 0, width / 2, height / 2)
+        self.topLeft = pygame.Rect(0, 0, width / 2, height / 2)
+        self.bottomRight = pygame.Rect(width / 2, height / 2, width / 2, height / 2)
+        self.bottomLeft = pygame.Rect(0, height / 2, width / 2, height / 2)
+
         self.dot = pygame.Rect(0, 0, 3, 3)
 
         self.center = pygame.Rect(width / 2, height / 2, width / 2, height / 2)

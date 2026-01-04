@@ -15,7 +15,7 @@ player.add_physics(1.0, 3.0, 16, 7.0, 0.5)
 map = TileMap("tests/levelTiles.png", (16, 16), 5, (25, 25), 10, (0, 0))
 map.load_map_from_json("tests/testMap.json")
 
-cam.set_follow_target(player)
+#cam.set_follow_target(player)
 
 running = True
 while running:
