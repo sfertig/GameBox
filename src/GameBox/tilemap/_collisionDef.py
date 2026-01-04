@@ -12,6 +12,8 @@ class _tileCollisionDefs:
 
         self.center = pygame.Rect(width / 2, height / 2, width / 2, height / 2)
 
+        self.none = pygame.Rect(0, 0, 0, 0)
+
     def regenerate(self, tileDim):
         width, height = tileDim
         self.full = pygame.Rect(0, 0, width, height)
@@ -22,3 +24,4 @@ class _tileCollisionDefs:
         self.halfBottom = pygame.Rect(0, height / 2, width, height / 2)
 
         self.center = pygame.Rect(width / 2, height / 2, width / 2, height / 2)
+

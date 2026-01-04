@@ -67,42 +67,49 @@ class _playerPhysics:
         return x, y
     
     def tileMapCollision(self, x, y):
-        if Global.tilemap is not None:
-            tiles = []
+        # No tilemap? just return original coordinates
+        if Global.tilemap is None:
+            return x, y
 
-            px = x // Global.tilemap.tileDim[0]
-            py = y // Global.tilemap.tileDim[1]
+        tiles = []
 
-            # check surrounding tiles
-            for i in range(-1, 2):
-                for j in range(-1, 2):
-                    ny = int(py + i)
-                    nx = int(px + j)
+        # Calculate which tile the player is inside
+        px = x // Global.tilemap.tileDim[0]
+        py = y // Global.tilemap.tileDim[1]
 
-                    if 0 <= ny < Global.tilemap.map.shape[0] and 0 <= nx < Global.tilemap.map.shape[1]:
-                        tiles.append(Global.tilemap.map[ny][nx])
+        collisions = []
 
-            collisions = []
+        # Loop through 3x3 neighborhood around the player
+        for i in range(-1, 2):
+            for j in range(-1, 2):
+                ny = int(py + i)
+                nx = int(px + j)
 
-            for idx, tile in enumerate(tiles):
+                # Skip out-of-bounds tiles
+                if ny < 0 or ny >= Global.tilemap.map.shape[0] or nx < 0 or nx >= Global.tilemap.map.shape[1]:
+                    continue
+
+                tile = Global.tilemap.map[ny][nx]
+
+                # Check if this tile has a collision shape
                 if str(tile) in Global.tilemap.collisionDict:
                     rectshape = Global.tilemap.collisionDict[str(tile)]
                     rect = getattr(Global.tilemap.collisionShapes, rectshape).copy()
-                    # tile coordinates
+
+                    # Position rect correctly in the world
                     rect.x += (nx * Global.tilemap.tileDim[0] + Global.tilemap.offset[0]) - Global.cam.x
                     rect.y += (ny * Global.tilemap.tileDim[1] + Global.tilemap.offset[1]) - Global.cam.y
+
                     collisions.append(rect)
 
-            # debug draw
-            for collision in collisions:
-                pygame.draw.rect(Global.screen, (255, 0, 0), collision)
+                    # Debug: draw each collision rect
+                    pygame.draw.rect(Global.screen, (255, 0, 0), rect)
 
-            x, y = self.collisionLogic(collisions, x, y)
-            print(f"x: {x}, y: {y}")
-            return x, y
+        # Use your existing collision logic to resolve collisions
+        x, y = self.collisionLogic(collisions, x, y)
 
-        # if tilemap is None, just return original x, y
         return x, y
+
 
 
 
