@@ -28,7 +28,8 @@ class Game:
         self.objs = []
 
 
-    def update(self, frame_rate=60):
+    def update(self, event: pygame.event,frame_rate=60):
+        Global.event = event
         #clear collisions
         Global.collisions.clear()
 

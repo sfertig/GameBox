@@ -15,6 +15,7 @@ player.add_physics(1.0, 3.0, 16, 7.0, 0.5)
 
 map = TileMap("tests/levelTiles.png", (16, 16), 5, (25, 25), 10, (0, 0))
 map.load_map_from_json("tests/testMap.json")
+map.activate_editor(Keys.tab)
 
 player.set_tilemap_sample(50)
 
@@ -23,14 +24,15 @@ cam.set_follow_target(player)
 
 running = True
 while running:
-    for event in pygame.event.get():
+    events = pygame.event.get()
+    for event in events:
         if event.type == pygame.QUIT:
             running = False
 
     player.top_down_movement()
 
-    game.update(60)
+    game.update(events, 60)
 
-    
+#os.system("cls")
 game.quit()
 pygame.quit()

@@ -14,6 +14,7 @@ class _global_:
         #--game and cam
         self.game: object = None
         self.cam: object = None
+        self.event: pygame.event = None
         #-collisions
         self.collisions: list[pygame.Rect] = []
 

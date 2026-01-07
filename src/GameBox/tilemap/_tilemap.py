@@ -5,6 +5,7 @@ import json
 from ..basics._net import Global
 
 from ._collisionDef import _tileCollisionDefs
+from ._Editor import _tilemapEditor
 
 class TileMap:
     def __init__(self, tileSet: str, tileDim: tuple, tileScale: float, mapDim: tuple, mapFill: int, offset: tuple):
@@ -16,6 +17,8 @@ class TileMap:
         self.offset = offset
         self.tilescale = tileScale
         self.orginDim = tileDim
+
+        self.editor = None
 
         Global.game.objs.append(self)
 
@@ -53,7 +56,11 @@ class TileMap:
         self.mapFile = path
         self.collisionDict = data["collisions"]
 
+    def activate_editor(self, activation):
+        self.editor = _tilemapEditor(self, activation)
+
     def update(self):
+        if self.editor is not None: self.editor._update()
         self.draw_tiles()
             
 

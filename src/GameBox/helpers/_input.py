@@ -51,6 +51,7 @@ class _keys:
         self.escape = pygame.K_ESCAPE
         self.space = pygame.K_SPACE
         self.backspace = pygame.K_BACKSPACE
+        self.tab = pygame.K_TAB
 
         #arrow keys
         self.up = pygame.K_UP
@@ -62,7 +63,11 @@ class _keys:
         self.mouse_x, self.mouse_y = 0, 0
     def init(self): Global.game.objs.append(self)
 
-    def is_pressed(self, key): return pygame.key.get_pressed()[key]
+    def is_pressed(self, key): 
+        for event in Global.event:
+            if event.type == pygame.KEYDOWN:
+                if event.key == key: return True
+        return False
 
     def update(self): self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
 
