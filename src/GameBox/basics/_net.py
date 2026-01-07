@@ -19,7 +19,7 @@ class _global_:
 
         #objects
         self.player = self._player()
-        self.tilemap: object = None
+        self.tilemap = []
 
     class _player:
         def __init__(self):

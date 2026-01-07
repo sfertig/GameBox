@@ -18,7 +18,6 @@ class TileMap:
         self.orginDim = tileDim
 
         Global.game.objs.append(self)
-        Global.tilemap = self
 
         self.collisionShapes = _tileCollisionDefs(self.tileDim)
 
@@ -42,7 +41,7 @@ class TileMap:
                 tile_id += 1
 
         print(f"tiles: {self.tiles}")
-        Global.tilmap = self
+        Global.tilemap.append(self)
 
     def load_map_from_json(self, filePath: str):
         with open(filePath, "r") as f:
