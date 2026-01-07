@@ -72,4 +72,7 @@ class TileMap:
         if self.mapFile is not None:
             print('tilemap saved')
             with open(self.mapFile, "w") as f:
-                json.dump(self.map.tolist(), f)
+                data = {}
+                data["map"] = self.map.tolist()
+                data["collisions"] = self.collisionDict
+                json.dump(data, f)
