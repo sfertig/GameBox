@@ -27,6 +27,7 @@ class TileMap:
         self.collisionDict = {}
 
         self.tilePosInImage = {}
+        self.posToTile = {}
 
         #map, tile splitting, ect
         #--create map
@@ -45,9 +46,10 @@ class TileMap:
                 tile.blit(tileset, (0, 0), (x, y, tile_w, tile_h))
                 self.tiles[tile_id] = pygame.transform.scale(tile, self.tileDim)
                 self.tilePosInImage[tile_id] = (x, y)
+                self.posToTile[(x, y)] = tile_id
                 tile_id += 1
 
-        print(f"tiles: {self.tiles}")
+        print(f"postoTile: {self.posToTile}")
         Global.tilemap.append(self)
 
     def load_map_from_json(self, filePath: str):

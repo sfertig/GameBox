@@ -52,7 +52,6 @@ class _tilemapEditor:
         y *= self.tilemap.tilescale / 2
         width = self.tilemap.orginDim[0] * self.tilemap.tilescale / 2
         height = self.tilemap.orginDim[1] * self.tilemap.tilescale / 2
-        print(x, y, width, height)
         outline = pygame.Rect(x, y, width, height)
         pygame.draw.rect(Global.screen, "white", outline, 2)
         #other stuff
@@ -67,9 +66,21 @@ class _tilemapEditor:
             x -= Global.cam.x
             y -= Global.cam.y
             Global.screen.blit(tile, (x, y))
+            if pygame.mouse.get_pressed()[0]:
+                #check if mouse is on tilemap
+                x, y = self.mx // self.tilemap.tileDim[0], self.my // self.tilemap.tileDim[1]
+                if x >= 0 and x < self.tilemap.mapDim[0] and y >= 0 and y < self.tilemap.mapDim[1]:
+                    self.tilemap.map[int(y)][int(x)] = self.selectedTile
         elif self.mode == "select":
-            pass
-            #paint outline of sellected tile
-
+            #paint mouse hovered tile
+            x, y = Keys.mouse_x, Keys.mouse_y
+            x = (x // width)
+            y = (y // width)
+            outline = pygame.Rect(x * width, y * width, width, height)
+            pygame.draw.rect(Global.screen, "black", outline, 2)
+            if pygame.mouse.get_pressed()[0]:
+                x *= self.tilemap.orginDim[0]
+                y *= self.tilemap.orginDim[1]
+                self.selectedTile = self.tilemap.posToTile[(int(x), int(y))]
 
 
