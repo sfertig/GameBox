@@ -3,7 +3,7 @@ import pygame
 import os
 
 width, height = 1400, 900
-game = Game(width, height, "red", "First Game!")
+game = Game(width, height, "blue", "First Game!")
 win = game.get_screen()
 
 Keys.init()
@@ -16,6 +16,7 @@ player.add_physics(1.0, 3.0, 16, 7.0, 0.5)
 map = TileMap("tests/levelTiles.png", (16, 16), 5, (25, 25), 0)
 map.load_map_from_json("tests/testMap.json")
 map.activate_editor(Keys.tab)
+
 
 
 player.set_tilemap_sample(50)

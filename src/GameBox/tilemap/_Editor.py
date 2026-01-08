@@ -67,6 +67,10 @@ class _tilemapEditor:
                 x, y = self.mx // self.tilemap.tileDim[0], self.my // self.tilemap.tileDim[1]
                 if x >= 0 and x < self.tilemap.mapDim[0] and y >= 0 and y < self.tilemap.mapDim[1]:
                     self.tilemap.map[int(y)][int(x)] = self.selectedTile
+            if pygame.mouse.get_pressed()[2]:
+                x, y = self.mx // self.tilemap.tileDim[0], self.my // self.tilemap.tileDim[1]
+                if x >= 0 and x < self.tilemap.mapDim[0] and y >= 0 and y < self.tilemap.mapDim[1]:
+                    self.tilemap.map[int(y)][int(x)] = 0
         elif self.mode == "select":
             #paint mouse hovered tile
             x, y = Keys.mouse_x, Keys.mouse_y
@@ -78,6 +82,7 @@ class _tilemapEditor:
                 x *= self.tilemap.orginDim[0]
                 y *= self.tilemap.orginDim[1]
                 self.selectedTile = self.tilemap.posToTile[(int(x), int(y))]
+            
 
     def moveSelectionByArrowKeys(self):
         x, y = self.tilemap.tilePosInImage[self.selectedTile]
@@ -89,7 +94,7 @@ class _tilemapEditor:
         if Keys.is_pressed(Keys.right): x += width
         if Keys.is_pressed(Keys.up): y -= height
         if Keys.is_pressed(Keys.down): y += height
-        
+
         if (int(x), int(y)) in self.tilemap.posToTile:
             self.selectedTile = self.tilemap.posToTile[(int(x), int(y))]
 
