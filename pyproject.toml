@@ -3,7 +3,7 @@ requires = ["hatchling >= 1.26"]
 build-backend = "hatchling.build"
 [project]
 name = "GameBox"
-version = "0.1.3"
+version = "0.2.0"
 authors = [
   { name="Sam Fertig", email="sfertig007@gmail.com" },
 ]
