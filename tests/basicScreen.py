@@ -33,6 +33,6 @@ while running:
 
     game.update(events, 60)
 
-#os.system("cls")
+os.system("cls")
 game.quit()
 pygame.quit()

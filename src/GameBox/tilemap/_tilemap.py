@@ -26,12 +26,15 @@ class TileMap:
 
         self.collisionDict = {}
 
+        self.tilePosInImage = {}
+
         #map, tile splitting, ect
         #--create map
         self.map = np.full(self.mapDim, mapFill)
         #--split map into tiles
         self.tiles = {}
         tileset = pygame.image.load(tileSet).convert_alpha()
+        self.tileset = tileset
         tile_w, tile_h = tileDim
         tile_id = 0
         tileset_w, tileset_h = tileset.get_size()
@@ -41,6 +44,7 @@ class TileMap:
                 tile = pygame.Surface(tileDim, pygame.SRCALPHA)
                 tile.blit(tileset, (0, 0), (x, y, tile_w, tile_h))
                 self.tiles[tile_id] = pygame.transform.scale(tile, self.tileDim)
+                self.tilePosInImage[tile_id] = (x, y)
                 tile_id += 1
 
         print(f"tiles: {self.tiles}")
@@ -57,11 +61,12 @@ class TileMap:
         self.collisionDict = data["collisions"]
 
     def activate_editor(self, activation):
+        print(f"editor activated. press {activation} to toggle")
         self.editor = _tilemapEditor(self, activation)
 
     def update(self):
-        if self.editor is not None: self.editor._update()
         self.draw_tiles()
+        if self.editor is not None: self.editor._update()
             
 
     def draw_tiles(self):
