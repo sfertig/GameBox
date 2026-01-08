@@ -10,7 +10,7 @@ class _tilemapEditor:
         self.activation = activation
         self.active = False
 
-        self.selectedTile = 10
+        self.selectedTile = 1
         self.mx, self.my = Keys.mouse_x, Keys.mouse_y
 
         self.mode = "paint"
@@ -23,12 +23,9 @@ class _tilemapEditor:
             self.my += Global.cam.y
             self.mx = self.mx // self.tilemap.tileDim[0] * self.tilemap.tileDim[0]
             self.my = self.my // self.tilemap.tileDim[1] * self.tilemap.tileDim[1]
-            self.mx -= self.tilemap.offset[0]
-            self.my -= self.tilemap.offset[1]
-
-            
 
             self._mode_()
+            self.moveSelectionByArrowKeys()
             self.ui()
 
         #toggle
@@ -61,8 +58,7 @@ class _tilemapEditor:
             #--show beside mouse
             x = self.mx
             y = self.my
-            x -= self.tilemap.offset[0]
-            y -= self.tilemap.offset[1]
+
             x -= Global.cam.x
             y -= Global.cam.y
             Global.screen.blit(tile, (x, y))
@@ -75,12 +71,26 @@ class _tilemapEditor:
             #paint mouse hovered tile
             x, y = Keys.mouse_x, Keys.mouse_y
             x = (x // width)
-            y = (y // width)
+            y = (y // height)
             outline = pygame.Rect(x * width, y * width, width, height)
             pygame.draw.rect(Global.screen, "black", outline, 2)
             if pygame.mouse.get_pressed()[0]:
                 x *= self.tilemap.orginDim[0]
                 y *= self.tilemap.orginDim[1]
                 self.selectedTile = self.tilemap.posToTile[(int(x), int(y))]
+
+    def moveSelectionByArrowKeys(self):
+        x, y = self.tilemap.tilePosInImage[self.selectedTile]
+
+        width = 16
+        height = 16
+
+        if Keys.is_pressed(Keys.left): x -= width
+        if Keys.is_pressed(Keys.right): x += width
+        if Keys.is_pressed(Keys.up): y -= height
+        if Keys.is_pressed(Keys.down): y += height
+        
+        if (int(x), int(y)) in self.tilemap.posToTile:
+            self.selectedTile = self.tilemap.posToTile[(int(x), int(y))]
 
 

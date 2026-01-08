@@ -8,13 +8,12 @@ from ._collisionDef import _tileCollisionDefs
 from ._Editor import _tilemapEditor
 
 class TileMap:
-    def __init__(self, tileSet: str, tileDim: tuple, tileScale: float, mapDim: tuple, mapFill: int, offset: tuple):
+    def __init__(self, tileSet: str, tileDim: tuple, tileScale: float, mapDim: tuple, mapFill: int, saveFile = None):
         self.tilesetFile = tileSet
-        self.mapFile = None
+        self.mapFile = saveFile
         self.tileDim = (tileDim[0] * tileScale, tileDim[1] * tileScale)
         self.tileDim = (self.tileDim[0] * Global.cam.scale, self.tileDim[1] * Global.cam.scale)
         self.mapDim = mapDim
-        self.offset = offset
         self.tilescale = tileScale
         self.orginDim = tileDim
 
@@ -37,7 +36,7 @@ class TileMap:
         tileset = pygame.image.load(tileSet).convert_alpha()
         self.tileset = tileset
         tile_w, tile_h = tileDim
-        tile_id = 0
+        tile_id = 1
         tileset_w, tileset_h = tileset.get_size()
 
         for y in range(0, tileset_h, tile_h):
@@ -49,8 +48,8 @@ class TileMap:
                 self.posToTile[(x, y)] = tile_id
                 tile_id += 1
 
-        print(f"postoTile: {self.posToTile}")
         Global.tilemap.append(self)
+        print(self.posToTile)
 
     def load_map_from_json(self, filePath: str):
         with open(filePath, "r") as f:
@@ -74,9 +73,11 @@ class TileMap:
     def draw_tiles(self):
         for y in range(self.mapDim[1]):
             for x in range(self.mapDim[0]):
+                if self.map[y][x] == 0:
+                    continue
                 tile = self.tiles[self.map[y][x]]
-                mx = (x * self.tileDim[0] + self.offset[0]) - Global.cam.x
-                my = (y * self.tileDim[1] + self.offset[1]) - Global.cam.y
+                mx = (x * self.tileDim[0]) - Global.cam.x
+                my = (y * self.tileDim[1]) - Global.cam.y
                 if mx < -self.tileDim[0] or mx > Global.screenDim[0] or my < -self.tileDim[1] or my > Global.screenDim[1]: continue
                 Global.screen.blit(tile, (mx, my))
 

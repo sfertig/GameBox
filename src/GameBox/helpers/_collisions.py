@@ -50,20 +50,20 @@ def _checkTilemapCollisions(x, y, vx, vy, dim, sample, obj):
         prx, pry = prect.center
         if Global.cam.follow != obj:
             if Global.cam.x != 0 or Global.cam.y != 0:
-                px = int((prx - tilemap.offset[0]) - Global.cam.x)
-                py = int((pry - tilemap.offset[1]) - Global.cam.y) 
+                px = int((prx) - Global.cam.x)
+                py = int((pry) - Global.cam.y) 
                 px = int(px  // tilemap.tileDim[0])
                 py = int(py  // tilemap.tileDim[1])
             else:
-                px = int((x - tilemap.offset[0]) / tilemap.tileDim[0])
-                py = int((y - tilemap.offset[1]) / tilemap.tileDim[1])
+                px = int((x) / tilemap.tileDim[0])
+                py = int((y ) / tilemap.tileDim[1])
         else:
             if Global.cam.x != 0 or Global.cam.y != 0:
-                px = int(((prx + Global.cam.x)-tilemap.offset[0]) // tilemap.tileDim[0])
-                py = int(((pry + Global.cam.y)-tilemap.offset[1]) // tilemap.tileDim[1])
+                px = int(((prx + Global.cam.x)) // tilemap.tileDim[0])
+                py = int(((pry + Global.cam.y)) // tilemap.tileDim[1])
             else:
-                px = int((x - tilemap.offset[0]) / tilemap.tileDim[0])
-                py = int((y - tilemap.offset[1]) / tilemap.tileDim[1])
+                px = int((x) / tilemap.tileDim[0])
+                py = int((y) / tilemap.tileDim[1])
 
 
         #check if player is on tilemap
@@ -89,18 +89,18 @@ def _checkTilemapCollisions(x, y, vx, vy, dim, sample, obj):
                 # Position rect correctly in the world
                 if Global.cam.follow != obj:
                     if Global.cam.x != 0 or Global.cam.y != 0:
-                        rect.x = ((nx * tilemap.tileDim[0]) + tilemap.offset[0]) - Global.cam.x
-                        rect.y = ((ny * tilemap.tileDim[1]) + tilemap.offset[1]) - Global.cam.y
+                        rect.x = ((nx * tilemap.tileDim[0])) - Global.cam.x
+                        rect.y = ((ny * tilemap.tileDim[1])) - Global.cam.y
                     else:
-                        rect.x += (nx * tilemap.tileDim[0] + tilemap.offset[0]) - Global.cam.x
-                        rect.y += (ny * tilemap.tileDim[1] + tilemap.offset[1]) - Global.cam.y
+                        rect.x += (nx * tilemap.tileDim[0]) - Global.cam.x
+                        rect.y += (ny * tilemap.tileDim[1]) - Global.cam.y
                 else:
                     if Global.cam.x != 0 or Global.cam.y != 0:
-                        rect.x += ((nx * tilemap.tileDim[0]) + tilemap.offset[0]) - Global.cam.x
-                        rect.y += ((ny * tilemap.tileDim[1]) + tilemap.offset[1]) - Global.cam.y
+                        rect.x += ((nx * tilemap.tileDim[0])) - Global.cam.x
+                        rect.y += ((ny * tilemap.tileDim[1])) - Global.cam.y
                     else:
-                        rect.x += (nx * tilemap.tileDim[0] + tilemap.offset[0]) - Global.cam.x
-                        rect.y += (ny * tilemap.tileDim[1] + tilemap.offset[1]) - Global.cam.y
+                        rect.x += (nx * tilemap.tileDim[0]) - Global.cam.x
+                        rect.y += (ny * tilemap.tileDim[1]) - Global.cam.y
                 collisions.append(rect)
 
         #check collisions

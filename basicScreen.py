@@ -2,8 +2,8 @@ from src.GameBox import *
 import pygame
 import os
 
-width, height = 800, 600
-game = Game(width, height, "blue", "First Game!")
+width, height = 1400, 900
+game = Game(width, height, "red", "First Game!")
 win = game.get_screen()
 
 Keys.init()
@@ -13,9 +13,10 @@ cam = Cammera()
 player = Player((width / 2, height / 4), (50, 50), "green", False)
 player.add_physics(1.0, 3.0, 16, 7.0, 0.5)
 
-map = TileMap("tests/levelTiles.png", (16, 16), 5, (25, 25), 10, (0, 0))
+map = TileMap("tests/levelTiles.png", (16, 16), 5, (25, 25), 0)
 map.load_map_from_json("tests/testMap.json")
 map.activate_editor(Keys.tab)
+
 
 player.set_tilemap_sample(50)
 
