@@ -4,7 +4,11 @@ class _tileCollisionDefs:
     def __init__(self, tileDim):
         width, height = tileDim
 
-        self.num = 12
+
+        self.rects = ["full", "halfLeft", "halfRight", "halfTop", "halfBottom", "topRight", 
+                      "topLeft", "bottomRight", "bottomLeft", "center", "none", "dot"]
+        
+        self.num = len(self.rects) + 1
 
         self.full = pygame.Rect(0, 0, width, height)
 

@@ -17,6 +17,8 @@ class TileMap:
         self.tilescale = tileScale
         self.orginDim = tileDim
 
+        self.tilesetNum = 0
+
         self.editor = None
 
         Global.game.objs.append(self)
@@ -46,10 +48,10 @@ class TileMap:
                 self.tiles[tile_id] = pygame.transform.scale(tile, self.tileDim)
                 self.tilePosInImage[tile_id] = (x, y)
                 self.posToTile[(x, y)] = tile_id
+                self.tilesetNum += 1
                 tile_id += 1
 
         Global.tilemap.append(self)
-        print(self.posToTile)
 
     def load_map_from_json(self, filePath: str):
         with open(filePath, "r") as f:
