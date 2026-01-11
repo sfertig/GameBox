@@ -17,6 +17,7 @@ map = TileMap("tests/levelTiles.png", (16, 16), 5, (25, 25), 0)
 map.load_map_from_json("tests/testMap.json")
 map.activate_editor(Keys.tab)
 
+image = Image((0, 0), "tests/levelTiles.png", 1.0)
 
 
 player.set_tilemap_sample(50)

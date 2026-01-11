@@ -26,6 +26,7 @@ class Game:
         Global.clock = pygame.time.Clock()
         Global.game = self
         self.objs = []
+        self.ui_objs = []
 
 
     def update(self, event: pygame.event,frame_rate=60):
@@ -40,6 +41,11 @@ class Game:
             if type(obj) == Player: player = obj
             else: obj.update()
         if player != None: player.update()
+        
+        #update ui
+        for obj in self.ui_objs:
+            obj.update()
+        
         pygame.display.update()
 
     def get_screen(self):

@@ -16,6 +16,7 @@ from .player._player import Player
 from .basics.utils import clamp, moveTward, zeroOut
 from .tilemap._tilemap import TileMap
 from.helpers._input import Keys
+from .ui._basicUI import Image
 
 
 __all__ = [
@@ -28,5 +29,6 @@ __all__ = [
     "zeroOut",
     "TileMap",
     "Keys",
+    "Image",
 ]
 
