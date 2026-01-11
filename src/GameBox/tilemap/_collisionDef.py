@@ -5,8 +5,8 @@ class _tileCollisionDefs:
         width, height = tileDim
 
 
-        self.rects = ["full", "halfLeft", "halfRight", "halfTop", "halfBottom", "topRight", 
-                      "topLeft", "bottomRight", "bottomLeft", "center", "none", "dot"]
+        self.rects = ["full", "none", "halfLeft", "halfRight", "halfTop", "halfBottom", "topRight", 
+                      "topLeft", "bottomRight", "bottomLeft", "dot"]
         
         self.num = len(self.rects) + 1
 

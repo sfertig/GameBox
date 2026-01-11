@@ -154,8 +154,7 @@ class _collisionsPencil():
 
         elif self.mode == "select":
             #get tile at mouse
-            mx = x / self.size
-            x = (x-(mx * self.size / 4)) // self.size
+            x = int(x // (self.size + self.size / 2))
             #draw underline
             underline = pygame.Rect((0, 0), (self.size, 5))
             underline.center = (Keys.mouse_x, ty + self.size+5)
