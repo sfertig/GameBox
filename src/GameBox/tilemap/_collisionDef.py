@@ -3,6 +3,9 @@ import pygame
 class _tileCollisionDefs:
     def __init__(self, tileDim):
         width, height = tileDim
+
+        self.num = 12
+
         self.full = pygame.Rect(0, 0, width, height)
 
         self.halfLeft = pygame.Rect(0, 0, width / 2, height)
