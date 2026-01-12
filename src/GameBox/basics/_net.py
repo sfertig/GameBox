@@ -18,6 +18,9 @@ class _global_:
         #-collisions
         self.collisions: list[pygame.Rect] = []
 
+        #--catche
+        self.images = {}
+
         #objects
         self.player = self._player()
         self.tilemap = []

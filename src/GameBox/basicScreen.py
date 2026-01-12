@@ -19,6 +19,8 @@ map.activate_editor(Keys.tab)
 
 image = Image((0, 0), "tests/levelTiles.png", 1.0)
 
+image2 = Sprite_2d((100, 100), "tests/levelTiles.png", 1.0)
+
 
 player.set_tilemap_sample(50)
 
@@ -33,6 +35,7 @@ while running:
             running = False
 
     player.top_down_movement()
+
 
     game.update(events, 60)
 
