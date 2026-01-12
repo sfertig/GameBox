@@ -31,3 +31,14 @@ class Rect:
             self.y += y
         else:
             Global.cam.move(x, y)
+            
+    def move_to(self, x, y):
+        if (Global.cam.follow) != (self):
+            self.x = x
+            self.y = y
+        else:
+            Global.cam.x = x
+            Global.cam.y = y
+
+    def __remove__(self):
+        Global.game.objs.remove(self)

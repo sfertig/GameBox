@@ -17,6 +17,7 @@ class Sprite_2d:
         #add to game
         Global.game.objs.append(self)
         self.collision = collision
+        self.__worldPos__ = True
 
         self.pos = pos
         if type(image) == str:
@@ -32,8 +33,10 @@ class Sprite_2d:
 
     def update(self):
         #world space
-        x = self.pos[0] - Global.cam.x
-        y = self.pos[1] - Global.cam.y
+        x, y = self.pos
+        if self.__worldPos__:
+            x = x - Global.cam.x
+            y = y - Global.cam.y
         Global.screen.blit(self.image, (x, y))
         if self.collision:
             rect = self.image.get_rect()
@@ -64,8 +67,10 @@ class AnimatedSprite_2d(Sprite_2d):
     def update(self):
         self.animation.update(Global.dt)
         #change to world space
-        x = self.pos[0] - Global.cam.x
-        y = self.pos[1] - Global.cam.y
+        x, y = self.pos
+        if self.__worldPos__:
+            x = x - Global.cam.x
+            y = y - Global.cam.y
         image = pygame.transform.scale_by(self.animation.getFrame(), 5.0)
         Global.screen.blit(image, (x, y))
         if self.collision:
@@ -95,4 +100,7 @@ class AnimationPlayer:
         Play an animation by name
         """
         self.current_animation = name
+
+    def __remove__(self):
+        Global.game.objs.remove(self)
         
