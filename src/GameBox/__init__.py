@@ -18,7 +18,7 @@ from .tilemap._tilemap import TileMap
 from.helpers._input import Keys
 from .ui._basicUI import Image
 
-from .GameLevel_ui._sprites import Sprite_2d
+from .GameLevel_ui._sprites import Sprite_2d, AnimatedSprite_2d, AnimationPlayer
 
 
 __all__ = [
@@ -33,5 +33,7 @@ __all__ = [
     "Keys",
     "Image",
     "Sprite_2d",
+    "AnimatedSprite_2d",
+    "AnimationPlayer",
 ]
 
