@@ -15,6 +15,10 @@ class Cammera:
         self.diff = (0, 0)
         self.scale = scale
 
+    def _move(self, x: int, y: int):
+        self.x += x
+        self.y += y
+
     def update(self):
         return
         if self.follow is not None:

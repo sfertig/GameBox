@@ -4,6 +4,8 @@ import numpy as np
 from ..basics._net import Global
 
 from ..player._playerPhysics import _playerPhysics
+from ..player._playerSprite import _playerSprite
+
 from ..GameLevel_ui._sprites import Sprite_2d
 
 class Player:
@@ -20,7 +22,7 @@ class Player:
         Global.player.pos = pos
         Global.player.player = self
 
-        self.sprite = None
+        self.sprite = _playerSprite(self)
 
 
     def add_physics(self, speed: float = 1.0, gravity: float = 0.0, jump: float = 10.0, maxV: float = 10.0, airRes: float = 0.2):
@@ -36,9 +38,7 @@ class Player:
         elif (Global.cam.follow) == (self):
             x = self.x
             y = self.y
-        if self.sprite is None:
-            #draw rectangle
-            pygame.draw.rect(Global.screen, self.color, (x, y, self.width, self.height))
+        self.sprite.update(x, y)
 
     #movement
     def top_down_movement(self):

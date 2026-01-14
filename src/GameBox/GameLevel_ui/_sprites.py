@@ -5,7 +5,7 @@ from ..basics._net import Global
 from ._Animations import Animation
 
 class Sprite_2d:
-    def __init__(self, pos: tuple, image, scale: float = 1.0, collision = True):
+    def __init__(self, pos: tuple, image, scale: float = 1.0, collision = True, dirrection: int = 1):
         """
         Initialize a 2D sprite.
         
@@ -18,20 +18,20 @@ class Sprite_2d:
         Global.game.objs.append(self)
         self.collision = collision
         self.__worldPos__ = True
+        self.dir = dirrection
 
         self.pos = pos
         if type(image) == str:
-            if image not in Global.images:
-                self.image = pygame.image.load(image)
-            else:
-                self.image = Global.images[image].copy()
+            self.image = pygame.image.load(image)
         else:
             self.image = image
         
-        #cache the image
-        Global.images[image] = self.image
         #scale image
+        print(self.image)
         self.image = pygame.transform.scale_by(self.image, scale)
+        #flip image
+        if self.dir == -1:
+            self.image = pygame.transform.flip(self.image, True, False)
 
     def update(self):
         #world space
@@ -45,6 +45,10 @@ class Sprite_2d:
             rect.x = x
             rect.y = y
             Global.collisions.append(rect)
+
+    def switch_dirrection(self):
+        self.image = pygame.transform.flip(self.image, True, False)
+        
 
     def move_by(self, x: int, y: int):
         self.pos = (self.pos[0] + x, self.pos[1] + y)
@@ -63,10 +67,7 @@ class Sprite_2d:
 
 def split_image(image, tileDim, startPos):
     if type(image) == str:
-        if image not in Global.images:
-            image = pygame.image.load(image)
-        else:
-            image = Global.images[image].copy()
+        image = pygame.image.load(image)
     else:
         image = image
 

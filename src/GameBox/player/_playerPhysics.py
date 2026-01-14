@@ -34,7 +34,7 @@ class _playerPhysics:
         elif (Global.cam.follow) == (self.player):
             dx = -(self.player.x - x)
             dy = -(self.player.y - y)
-            Global.cam.move(self.vx, self.vy)
+            Global.cam._move(self.vx, self.vy)
 
 
 
