@@ -18,7 +18,7 @@ map.load_map_from_json("tests/testMap.json")
 map.activate_editor(Keys.tab)
 
 player.add_animated_sprit2D("tests/levelTiles.png", (16, 16), (0, 0), 4, 0.1)
-player.set_dim_as_sprite()
+#player.set_dim_as_sprite()
 
 cam.set_follow_target(player)
 #cam.move(-50, -50)

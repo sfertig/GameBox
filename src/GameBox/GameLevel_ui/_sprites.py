@@ -22,14 +22,16 @@ class Sprite_2d:
         self.pos = pos
         if type(image) == str:
             if image not in Global.images:
-                self.image = pygame.transform.scale_by(pygame.image.load(image), scale)
+                self.image = pygame.image.load(image)
             else:
                 self.image = Global.images[image].copy()
         else:
-            self.image = pygame.transform.scale_by(image, scale)
+            self.image = image
         
         #cache the image
         Global.images[image] = self.image
+        #scale image
+        self.image = pygame.transform.scale_by(self.image, scale)
 
     def update(self):
         #world space
@@ -59,48 +61,17 @@ class Sprite_2d:
     def __remove__(self):
         Global.game.objs.remove(self)
 
-class AnimatedSprite_2d(Sprite_2d):
-    def __init__(self, pos: tuple, image, tileDim, startPos, frames, dur, collision = True):
-        super().__init__(pos, image, collision=collision)
-        self.animation = Animation(image, tileDim, startPos, frames, dur)
+def split_image(image, tileDim, startPos):
+    if type(image) == str:
+        if image not in Global.images:
+            image = pygame.image.load(image)
+        else:
+            image = Global.images[image].copy()
+    else:
+        image = image
+
+    #return image split
+    x = startPos[0] * tileDim[0]
+    y = startPos[1] * tileDim[1]
+    return image.subsurface((x, y, tileDim[0], tileDim[1]))
     
-    def update(self):
-        self.animation.update(Global.dt)
-        #change to world space
-        x, y = self.pos
-        if self.__worldPos__:
-            x = x - Global.cam.x
-            y = y - Global.cam.y
-        image = pygame.transform.scale_by(self.animation.getFrame(), 5.0)
-        Global.screen.blit(image, (x, y))
-        if self.collision:
-            rect = image.get_rect()
-            rect.x = x
-            rect.y = y
-            Global.collisions.append(rect)
-
-class AnimationPlayer:
-    def __init__(self, pos: tuple):
-        self.pos = pos
-        self.animations = {}
-        self.current_animation = None
-
-        Global.game.objs.append(self)
-
-    def update(self):
-        if self.current_animation is not None:
-            self.animations[self.current_animation].update()
-    
-    def add_animation(self, name: str, animation: Animation):
-        self.animations[name] = animation
-        self.animations[name].__remove__()
-
-    def play(self, name):
-        """
-        Play an animation by name
-        """
-        self.current_animation = name
-
-    def __remove__(self):
-        Global.game.objs.remove(self)
-        

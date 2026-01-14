@@ -15,20 +15,12 @@ def CheckCollisions(x, y, vx, vy, dim, sample, obj):
         return x, y, vx, vy
     
 def _mainCollisionLogic(collisions, x, y, vx, vy, dim):
-    new_rect = pygame.Rect((x, y), dim)
-    for collision in collisions:
-        #pygame.draw.rect(Global.screen, (255, 0, 0), collision, 1)
-        if collision.colliderect(new_rect):
-            if vx > 0:
-                x = collision.left - dim[0]
-            elif vx < 0:
-                x = collision.right
-            vx = 0
-
     # Y-axis collisions
+    py = y
     new_rect = pygame.Rect((x, y), dim)
+    pygame.draw.rect(Global.screen, "green", new_rect, 1)
     for collision in collisions:
-        #pygame.draw.rect(Global.screen, (255, 0, 0), collision, 1)
+        pygame.draw.rect(Global.screen, "yellow", collision, 1)
         if collision.colliderect(new_rect):
             if vy > 0:  # falling
                 y = collision.top - dim[1]
@@ -36,6 +28,16 @@ def _mainCollisionLogic(collisions, x, y, vx, vy, dim):
             elif vy < 0:  # jumping
                 y = collision.bottom
                 vy = 0
+                
+    new_rect = pygame.Rect((x, py), dim)
+    for collision in collisions:
+        pygame.draw.rect(Global.screen, (255, 0, 0), collision, 1)
+        if collision.colliderect(new_rect):
+            if vx > 0:
+                x = collision.left - dim[0]
+            elif vx < 0:
+                x = collision.right
+            vx = 0
 
     return x, y, vx, vy
     
