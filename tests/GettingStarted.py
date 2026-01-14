@@ -15,9 +15,8 @@ player.add_physics(1.0, 3.0, 16, 7.0, 0.5)
 
 image = split_image("tests/Player.png", (32, 32), (0, 0))
 print(image)
-player.sprite.add_sprite_2d(image, 2, 1)
+player.sprite.add_animated_sprite_2d("tests/Player.png", (5, 1), (32, 32), 5, 0.075, 2.0, True, 1)
 player.sprite.sprite.switch_dirrection()
-
 
 rect = Rect((width / 2, height / 4), (64, 64), "red", True)
 

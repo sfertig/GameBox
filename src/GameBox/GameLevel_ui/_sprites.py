@@ -75,4 +75,57 @@ def split_image(image, tileDim, startPos):
     x = startPos[0] * tileDim[0]
     y = startPos[1] * tileDim[1]
     return image.subsurface((x, y, tileDim[0], tileDim[1]))
-    
+
+class Animated_Sprite2D:
+    def __init__(self, pos, image, imageDim, tileDim, frames, speed, scale = 1.0, collision = True, dirrection = 1):
+        self.animation = Animation(image, tileDim, (0, 0), frames, speed)
+        self.collision = collision
+        self.dir = dirrection
+        self.pos = pos
+
+        self.scale = scale
+        self.image = pygame.transform.scale_by(self.animation.getFrame(), scale)
+        if self.dir == -1:
+            self.image = pygame.transform.flip(self.image, True, False)
+
+        self.__worldPos__ = True
+
+        #add to game
+        Global.game.objs.append(self)
+
+    def update(self):
+        self.animation.update(Global.dt)
+        self.image = pygame.transform.scale_by(self.animation.getFrame(), self.scale)
+        if self.dir == -1:
+            self.image = pygame.transform.flip(self.image, True, False)
+        
+        #world space
+        x, y = self.pos
+        if self.__worldPos__:
+            x = x - Global.cam.x
+            y = y - Global.cam.y
+        Global.screen.blit(self.image, (x, y))
+        if self.collision:
+            rect = self.image.get_rect()
+            rect.x = x
+            rect.y = y
+            Global.collisions.append(rect)
+
+    def __remove__(self):
+        Global.game.objs.remove(self)
+
+    def switch_dirrection(self):
+        self.image = pygame.transform.flip(self.image, True, False)
+
+    def move_by(self, x: int, y: int):
+        self.pos = (self.pos[0] + x, self.pos[1] + y)
+
+    def move_to(self, x: int, y: int):
+        self.pos = (x, y)
+
+    def get_pos(self):
+        return self.pos
+
+    def rescale(self, scale: float):
+        self.image = pygame.transform.scale_by(self.image, scale)
+

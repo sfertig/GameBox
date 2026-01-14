@@ -6,15 +6,7 @@ from ..basics._net import Global
 class Animation:
     def __init__(self, image, tileDim, startPos, frames, dur):
         if type(image) == str:
-            if image not in Global.images:
-                image = pygame.transform.scale_by(pygame.image.load(image), scale)
-            else:
-                image = Global.images[image].copy()
-        else:
-            image = pygame.transform.scale_by(image, scale)
-        
-        #cache the image
-        Global.images[image] = image
+            image = pygame.image.load(image)
 
         #others
         self.dur = dur
