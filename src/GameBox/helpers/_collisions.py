@@ -7,7 +7,6 @@ from ..basics._net import Global
 def CheckCollisions(x, y, vx, vy, dim, sample, obj):
         x, y = x + vx, y + vy
 
-
         #basic object collisions
         x, y, vx, vy = _mainCollisionLogic(Global.collisions, x, y, vx, vy, dim)
         x, y, vx, vy = _checkTilemapCollisions(x, y, vx, vy, dim, sample, obj)
@@ -18,9 +17,9 @@ def _mainCollisionLogic(collisions, x, y, vx, vy, dim):
     # Y-axis collisions
     py = y
     new_rect = pygame.Rect((x, y), dim)
-    pygame.draw.rect(Global.screen, "green", new_rect, 1)
+    pygame.draw.rect(Global.screen, "green", new_rect, 5)
     for collision in collisions:
-        pygame.draw.rect(Global.screen, "yellow", collision, 1)
+        pygame.draw.rect(Global.screen, "yellow", collision, 5)
         if collision.colliderect(new_rect):
             if vy > 0:  # falling
                 y = collision.top - dim[1]
@@ -31,7 +30,7 @@ def _mainCollisionLogic(collisions, x, y, vx, vy, dim):
                 
     new_rect = pygame.Rect((x, py), dim)
     for collision in collisions:
-        pygame.draw.rect(Global.screen, (255, 0, 0), collision, 1)
+        pygame.draw.rect(Global.screen, "yellow", collision, 5)
         if collision.colliderect(new_rect):
             if vx > 0:
                 x = collision.left - dim[0]

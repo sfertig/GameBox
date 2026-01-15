@@ -19,6 +19,7 @@ from.helpers._input import Keys
 from .ui._basicUI import Image
 
 from .GameLevel_ui._sprites import Sprite_2d, Animated_Sprite2D, split_image
+from.helpers._Conditions import Conditions
 
 
 __all__ = [
@@ -35,6 +36,6 @@ __all__ = [
     "Sprite_2d",
     "Animated_Sprite2D",
     "split_image",
-
+    "Conditions",
 ]
 

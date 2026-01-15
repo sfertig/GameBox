@@ -19,7 +19,7 @@ class _playerPhysics:
         self.onGround = False
         self.canJump = False
 
-        self.sample = 10
+        self.sample = 25
 
         self.vx, self.vy = 0, 0
 

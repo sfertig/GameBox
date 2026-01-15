@@ -18,8 +18,7 @@ class _global_:
         #-collisions
         self.collisions: list[pygame.Rect] = []
 
-        #--catche
-        self.images = {}
+        self.cond: object = None
 
         #objects
         self.player = self._player()

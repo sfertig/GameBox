@@ -30,7 +30,7 @@ class Rect:
             self.x += x
             self.y += y
         else:
-            Global.cam.move(x, y)
+            Global.cam._move(x, y)
             
     def move_to(self, x, y):
         if (Global.cam.follow) != (self):
