@@ -9,21 +9,38 @@ from ..player._playerSprite import _playerSprite
 from ..GameLevel_ui._sprites import Sprite_2d
 
 class Player:
+    """
+    Initialize a Player object.
+
+    Parameters:
+    pos (tuple): The position of the Player in world space.
+    size (tuple): The size of the Player in world space.
+    color (tuple): The color of the Player (default: (0, 0, 0)).
+    gravity (bool): Whether the Player is affected by gravity (default: False).
+
+    Returns:
+    None
+    """
     def __init__(self, pos: tuple, size: tuple, color: tuple = (0, 0, 0), gravity: bool = False):
+        # Set the position and size of the Player
         self.x, self.y = pos
         self.screenPos = pos
         self.dim = size
         self.color = color
         self.width, self.height = size
 
+        # Set whether the Player is affected by gravity
         self.gravity = gravity
 
+        # State of the Player (e.g. "jumping", "standing", etc.)
         self.state = ""
-        
+
+        # Add the Player to the game
         Global.game.objs.append(self)
         Global.player.pos = pos
         Global.player.player = self
 
+        # Initialize the sprite for the Player
         self.sprite = _playerSprite(self)
 
 

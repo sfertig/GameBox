@@ -50,7 +50,7 @@ class _playerSprite:
             self.sprite.__worldPos__ = False
         self.sprite.__remove__()
 
-    def add_animated_sprite_2d(self, image, imageDim, tileDim, frames, speed, scale = 1.0, collision = True, dirrection = 1):
+    def add_animated_sprite_2d(self, image, imageDim, tileDim, frames, speed, scale = 1.0, collision = False, dirrection = 1):
         self.sprite = Animated_Sprite2D((self.player.x, self.player.y), image, imageDim, tileDim, frames, speed, scale, collision, dirrection)
         if Global.cam.follow == self.player:
             self.sprite.__worldPos__ = False

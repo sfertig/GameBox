@@ -4,6 +4,9 @@ from ..basics._net import Global
 
 
 class _keys:
+    """
+    A class that holds all the key bindings for the game
+    """
     def __init__(self):
 
         #alphabet
@@ -61,6 +64,7 @@ class _keys:
 
         #mouse
         self.mouse_x, self.mouse_y = 0, 0
+
     def init(self): Global.game.objs.append(self)
 
     def is_pressed(self, key): 
