@@ -17,6 +17,8 @@ class Player:
         self.width, self.height = size
 
         self.gravity = gravity
+
+        self.state = ""
         
         Global.game.objs.append(self)
         Global.player.pos = pos
@@ -38,7 +40,8 @@ class Player:
         elif (Global.cam.follow) == (self):
             x = self.x
             y = self.y
-        self.sprite.update(x, y)
+        velocity = (self.physics.vx, self.physics.vy)
+        self.sprite.update(x, y, velocity)
 
     #movement
     def top_down_movement(self):

@@ -1,4 +1,5 @@
 import pygame
+import os
 from src.GameBox import *
 
 width, height = 800, 600
@@ -18,6 +19,12 @@ print(image)
 player.sprite.add_animated_sprite_2d("tests/Player.png", (5, 1), (32, 32), 5, 0.075, 2.0, True, 1)
 player.sprite.sprite.switch_dirrection()
 
+stateTree = {
+    "Idle": {Conditions.velocity_any: "Walk"},
+    "Walk": {Conditions.velocity_none: "Idle"}
+}
+player.sprite.set_states(stateTree, "Walk")
+
 rect = Rect((width / 2, height / 4), (64, 64), "red", True)
 
 
@@ -31,6 +38,11 @@ while running:
     
     player.top_down_movement()
     game.update(events, 60)
+
+    #print player state
+    os.system("cls")
+    print(player.sprite.state)
     
 game.quit()
 pygame.quit()
+os.system("cls")

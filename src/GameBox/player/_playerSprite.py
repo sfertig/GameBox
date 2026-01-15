@@ -4,14 +4,23 @@ import numpy as np
 from ..basics._net import Global
 
 from ..GameLevel_ui._sprites import Sprite_2d, Animated_Sprite2D
+from ..helpers._Conditions import Condition_check, _Conditions
 
 class _playerSprite:
     def __init__(self, player):
         self.player = player
 
-        self.sprite = None
+        self.state = player.state
+        self.statetree = {}
+        self.condition_check = None
 
-    def update(self, x, y):
+        self.sprite = None
+        
+
+    def update(self, x, y, velocity):
+        #state updates
+        if self.condition_check is not None:
+            self.state = self.condition_check.check(velocity, self.player.screenPos)
         #any changes to follow target
         if Global.cam.follow == self.player and self.sprite is not None:
             self.sprite.__worldPos__ = False
@@ -44,6 +53,11 @@ class _playerSprite:
     def remove_sprite(self):
         if self.sprite is not None:
             self.sprite = None
+
+    def set_states(self, stateTree: dict[str, dict[_Conditions, str]], currentState: str):
+        self.statetree = stateTree
+        self.state = currentState
+        self.condition_check = Condition_check(self.statetree, self.state)
         
 
 
