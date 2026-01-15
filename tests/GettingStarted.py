@@ -14,10 +14,12 @@ Keys.init()
 player = Player((width / 2, height / 2), (64, 64), "green", False)
 player.add_physics(1.0, 3.0, 16, 7.0, 0.5)
 
-image = split_image("tests/Player.png", (32, 32), (0, 0))
-print(image)
-player.sprite.add_animated_sprite_2d("tests/Player.png", (5, 1), (32, 32), 5, 0.075, 2.0, True, 1)
-player.sprite.sprite.switch_dirrection()
+player.sprite.add_animation_player(2.0)
+player.sprite.add_animation("Walk", "tests/Player.png", (5, 1), (32, 32), 5, 0.075, 2.0, True, 1)
+player.sprite.add_animation("Idle", "tests/Player.png", (5, 1), (32, 32), 1, 0.075, 2.0, True, 1)
+
+player.sprite.set_animation("Idle")
+
 
 stateTree = {
     "Idle": {Conditions.velocity_any: "Walk"},

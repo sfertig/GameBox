@@ -129,3 +129,61 @@ class Animated_Sprite2D:
     def rescale(self, scale: float):
         self.image = pygame.transform.scale_by(self.image, scale)
 
+class AnimationPlayer2D:
+    def __init__(self, pos, scale):
+        self.pos = pos
+        self.scale = scale
+        self.anims = {}
+        self.currentAnim = None
+
+        self.__worldPos__ = True
+
+        #add to game
+        Global.game.objs.append(self)
+
+    def update(self):
+        if self.currentAnim is not None:
+            self.anims[self.currentAnim].update()
+
+    def add_animation(self, name, image, imageDim, tileDim, frames, speed, scale = 1.0, collision = True, dirrection = 1):
+        self.anims[name] = Animated_Sprite2D(self.pos, image, imageDim, tileDim, frames, speed, scale, collision, dirrection)
+        self.currentAnim = name
+        self.anims[self.currentAnim].__remove__()
+
+    def remove_animation(self, name: str):
+        self.anims[name].__remove__()
+        del self.anims[name]
+
+    def set_worldPos(self, worldPos: bool):
+        for anim in self.anims:
+            self.anims[anim].__worldPos__ = worldPos
+
+    def __remove__(self):
+        if self in Global.game.objs:
+            Global.game.objs.remove(self)
+
+    def switch_dirrection(self):
+        for anim in self.anims:
+            self.anims[anim].switch_dirrection()
+
+    def set_scale(self, scale: float):
+        for anim in self.anims:
+            self.anims[anim].rescale(scale)
+
+    def set_animation(self, anim: str):
+        self.currentAnim = anim
+
+    def move_by(self, x: int, y: int):
+        self.pos = (self.pos[0] + x, self.pos[1] + y)
+        for anim in self.anims:
+            self.anims[anim].move_by(x, y)
+
+    def move_to(self, x: int, y: int):
+        self.pos = (x, y)
+        for anim in self.anims:
+            self.anims[anim].move_to(x, y)
+
+    def get_pos(self):
+        return self.pos
+
+
