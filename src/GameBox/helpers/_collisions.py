@@ -14,34 +14,85 @@ def CheckCollisions(x, y, vx, vy, dim, sample, obj):
         return x, y, vx, vy
     
 def _mainCollisionLogic(collisions, x, y, vx, vy, dim):
-    # Y-axis collisions
-    py = y
-    new_rect = pygame.Rect((x, y), dim)
+    offset = 0
+
+    prev_rect = pygame.Rect(x - vx, y - vy, dim[0], dim[1])
+    rect = pygame.Rect(x, y, dim[0], dim[1])
+
+    # =====================
+    # Y AXIS COLLISION
+    # =====================
+    y_hit = None
+
+    for collision in collisions:
+        if Global._debug:
+            pygame.draw.rect(Global.screen, "yellow", collision, 2)
+
+        if collision.colliderect(rect):
+            if vy > 0 and prev_rect.bottom <= collision.top:
+                if y_hit is None or collision.top < y_hit.top:
+                    y_hit = collision
+            elif vy < 0 and prev_rect.top >= collision.bottom:
+                if y_hit is None or collision.bottom > y_hit.bottom:
+                    y_hit = collision
+
+    if y_hit:
+        if vy > 0:
+            y = y_hit.top - dim[1] - offset
+        else:
+            y = y_hit.bottom + offset
+        vy = 0
+
+    # update rect after Y resolution
+    rect.y = y
+
+    # =====================
+    # X AXIS COLLISION
+    # =====================
+    x_hit = None
+
+    for collision in collisions:
+        if collision.colliderect(rect):
+
+            # ONLY resolve X if we were NOT overlapping horizontally last frame
+            if prev_rect.right <= collision.left and vx > 0:
+                if x_hit is None or collision.left < x_hit.left:
+                    x_hit = collision
+
+            elif prev_rect.left >= collision.right and vx < 0:
+                if x_hit is None or collision.right > x_hit.right:
+                    x_hit = collision
+
+    if x_hit:
+        if vx > 0:
+            x = x_hit.left - dim[0] - offset
+        else:
+            x = x_hit.right + offset
+        vx = 0
+
     if Global._debug:
-        pygame.draw.rect(Global.screen, "green", new_rect, 5)
-    for collision in collisions:
-        if Global._debug:
-            pygame.draw.rect(Global.screen, "yellow", collision, 5)
-        if collision.colliderect(new_rect):
-            if vy > 0:  # falling
-                y = collision.top - dim[1]
-                vy = 0
-            elif vy < 0:  # jumping
-                y = collision.bottom
-                vy = 0
-                
-    new_rect = pygame.Rect((x, py), dim)
-    for collision in collisions:
-        if Global._debug:
-            pygame.draw.rect(Global.screen, "yellow", collision, 5)
-        if collision.colliderect(new_rect):
-            if vx > 0:
-                x = collision.left - dim[0]
-            elif vx < 0:
-                x = collision.right
-            vx = 0
+        pygame.draw.rect(
+            Global.screen,
+            "green",
+            rect,
+            2
+        )
+        pygame.draw.rect(
+            Global.screen,
+            "red",
+            prev_rect,
+            1
+        )
+        pygame.draw.rect(
+            Global.screen,
+            "blue",
+            (x, y, dim[0], dim[1]),
+            2
+        )
 
     return x, y, vx, vy
+
+
     
 def _checkTilemapCollisions(x, y, vx, vy, dim, sample, obj):
     if len(Global.tilemap) == 0:

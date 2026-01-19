@@ -6,6 +6,7 @@ width, height = 800, 600
 
 game = Game(width, height, "blue", "First Game!")
 screen = game.get_screen()
+game._set_debug(True)
 
 cam = Cammera()
 
