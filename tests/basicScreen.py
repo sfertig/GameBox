@@ -10,7 +10,7 @@ Keys.init()
 
 cam = Cammera()
 
-player = Player((width / 2, height / 4), (50, 50), "green", False)  
+player = Player((width / 2, height / 4), (64, 64), "green", False)  
 player.add_physics(1.0, 3.0, 16, 7.0, 0.5)
 
 map = TileMap("tests/levelTiles.png", (16, 16), 5, (25, 25), 0)
