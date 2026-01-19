@@ -5,22 +5,14 @@ from ..basics.utils import zeroOut
 from ..basics._net import Global
 
 class _Conditions:
-    """
-    Class containing the predefined conditions for the game.
-    Conditions are in the format of 'C' followed by the command ('v' for velocity), and dir (^ up, _ down, < left, > right, # none, ~ any)
-    """
-
     def __init__(self):
-        """
-        Initialize the conditions.
-        """
-        # conditions start with 'C' and then command ('v' for velocity), and dir (^ up, _ down, < left, > right, # none, ~ any)
-        self.velocity_up = 'CV^'  # velocity up
-        self.velocity_down = 'CV_'  # velocity down
-        self.velocity_left = 'CV<'  # velocity left
-        self.velocity_right = 'CV>'  # velocity right
-        self.velocity_none = 'CV#'  # velocity none
-        self.velocity_any = 'CV~'  # velocity any
+        #conditions start with 'C' and then command ('v' for velocity), and dir (^ up, _ down, < left, > right, # none, ~ any)
+        self.velocity_up = 'CV^'
+        self.velocity_down = 'CV_'
+        self.velocity_left = 'CV<'
+        self.velocity_right = 'CV>'
+        self.velocity_none = 'CV#'
+        self.velocity_any = 'CV~'
 
 Conditions = _Conditions()
 Global.cond = Conditions
@@ -43,9 +35,8 @@ class Condition_check:
 
     def _resolve_velocities(self, velocities, cond):
         vx, vy = velocities
-        Max = 0.3
-        vx = zeroOut(vx, Max)
-        vy = zeroOut(vy, Max)
+        vx = zeroOut(vx, 0.1)
+        vy = zeroOut(vy, 0.1)
         dir = cond[2]
         print(vx, vy, dir)
         #resolve in order up, down, left, right, none, any

@@ -77,44 +77,7 @@ def split_image(image, tileDim, startPos):
     return image.subsurface((x, y, tileDim[0], tileDim[1]))
 
 class Animated_Sprite2D:
-    """
-    A class for animated 2D sprites.
-
-    Args:
-        pos (tuple): The position of the sprite in world space.
-        image (str or pygame.Surface): The image of the sprite.
-        imageDim (tuple): The dimensions of the image.
-        tileDim (tuple): The dimensions of the tiles in the image.
-        frames (int): The number of frames in the animation.
-        speed (float): The speed of the animation.
-        scale (float): The scale of the sprite.
-        collision (bool): Whether the sprite has collision.
-        dirrection (int): The direction of the sprite.
-
-    Attributes:
-        animation (Animation): The animation of the sprite.
-        collision (bool): Whether the sprite has collision.
-        dir (int): The direction of the sprite.
-        pos (tuple): The position of the sprite in world space.
-        scale (float): The scale of the sprite.
-        image (pygame.Surface): The current frame of the animation.
-        __worldPos__ (bool): Whether the sprite is in world space.
-
-    Methods:
-        update (None): Updates the sprite.
-        __remove__ (None): Removes the sprite from the game.
-        switch_dirrection (None): Switches the direction of the sprite.
-        move_by (x, y): Moves the sprite by (x, y) in world space.
-        move_to (x, y): Moves the sprite to (x, y) in world space.
-        get_pos (None): Returns the position of the sprite in world space.
-        rescale (scale): Rescales the sprite by the given scale.
-    """
-
     def __init__(self, pos, image, imageDim, tileDim, frames, speed, scale = 1.0, collision = True, dirrection = 1):
-        """
-        
-        """
-
         self.animation = Animation(image, tileDim, (0, 0), frames, speed)
         self.collision = collision
         self.dir = dirrection
@@ -167,27 +130,6 @@ class Animated_Sprite2D:
         self.image = pygame.transform.scale_by(self.image, scale)
 
 class AnimationPlayer2D:
-    """
-    Class for playing animations in a 2D game.
-
-    Attributes:
-        pos (tuple): Position of the AnimationPlayer2D.
-        scale (float): Scale of the AnimationPlayer2D.
-        anims (dict): Dictionary of animations that can be played, where the key is the name of the animation and the value is an instance of Animated_Sprite2D.
-        currentAnim (str): The name of the currently playing animation.
-
-    Methods:
-        update (None): Updates the currently playing animation.
-        add_animation (name, image, imageDim, tileDim, frames, speed, scale = 1.0, collision = True, dirrection = 1): Adds an animation to the AnimationPlayer2D.
-        remove_animation (name: str): Removes an animation from the AnimationPlayer2D.
-        set_worldPos (worldPos: bool): Sets the world position of all animations in the AnimationPlayer2D.
-        __remove__ (None): Removes the AnimationPlayer2D from the game.
-        set_scale (scale: float): Sets the scale of all animations in the AnimationPlayer2D.
-        set_animation (anim: str): Sets the currently playing animation.
-        move_by (x, y): Moves the AnimationPlayer2D by (x, y) in world space.
-        move_to (x, y): Moves the AnimationPlayer2D to (x, y) in world space.
-        get_pos (None): Returns the position of the AnimationPlayer2D in world space.
-    """
     def __init__(self, pos, scale):
         self.pos = pos
         self.scale = scale
@@ -219,6 +161,10 @@ class AnimationPlayer2D:
     def __remove__(self):
         if self in Global.game.objs:
             Global.game.objs.remove(self)
+
+    def switch_dirrection(self):
+        for anim in self.anims:
+            self.anims[anim].switch_dirrection()
 
     def set_scale(self, scale: float):
         for anim in self.anims:

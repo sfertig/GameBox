@@ -9,20 +9,6 @@ from ._Editor import _tilemapEditor
 
 class TileMap:
     def __init__(self, tileSet: str, tileDim: tuple, tileScale: float, mapDim: tuple, mapFill: int, saveFile = None):
-        """
-        Constructor for TileMap object.
-
-        Args:
-            tileSet (str): filepath to tileset image
-            tileDim (tuple): dimensions of a single tile
-            tileScale (float): scale of tiles relative to tileset image
-            mapDim (tuple): dimensions of the map
-            mapFill (int): default tile id to fill map with
-            saveFile (str): filepath to save map to (default is None)
-
-        Returns:
-            None
-        """
         self.tilesetFile = tileSet
         self.mapFile = saveFile
         self.tileDim = (tileDim[0] * tileScale, tileDim[1] * tileScale)
