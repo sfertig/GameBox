@@ -66,8 +66,8 @@ class _playerSprite:
             self.sprite.set_worldPos(False)
         self.sprite.__remove__()
 
-    def add_animation(self, name, image, imageDim, tileDim, frames, speed, scale = 1.0, collision = True, dirrection = 1):
-        self.sprite.add_animation(name, image, imageDim, tileDim, frames, speed, scale, collision, dirrection)
+    def add_animation(self, name, image, imageDim, tileDim, frames, speed, scale = 1.0, dirrection = 1):
+        self.sprite.add_animation(name, image, imageDim, tileDim, frames, speed, scale, False, dirrection)
         self.sprite.__remove__()
         self.sprite.set_worldPos(False)
 

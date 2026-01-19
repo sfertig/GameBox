@@ -160,11 +160,7 @@ class AnimationPlayer2D:
 
     def __remove__(self):
         if self in Global.game.objs:
-            Global.game.objs.remove(self)
-
-    def switch_dirrection(self):
-        for anim in self.anims:
-            self.anims[anim].switch_dirrection()
+            Global.game.objs.remove(self)\
 
     def set_scale(self, scale: float):
         for anim in self.anims:

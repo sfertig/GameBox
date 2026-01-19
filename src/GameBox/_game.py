@@ -57,4 +57,25 @@ class Game:
             if hasattr(obj, "_quit") and callable(obj._quit):
                 obj._quit()
 
+    def _set_debug(self, debug: bool):
+        """
+        Set the debug mode for the game. This will show / hide debuging information 
+        like collisions. Note: This feture is for development and testing purposes only.
+        
+        Parameters:
+        debug (bool): The debug mode.
+        
+        Returns:
+        None
+        """
+        Global._debug = debug
+    def _get_debug_state(self):
+        """
+        Get the debug mode for the game.
+        
+        Returns:
+        bool: The debug mode.
+        """
+        return Global._debug
+
 

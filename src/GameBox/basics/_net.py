@@ -20,6 +20,8 @@ class _global_:
 
         self.cond: object = None
 
+        self._debug: bool = False
+
         #objects
         self.player = self._player()
         self.tilemap = []
