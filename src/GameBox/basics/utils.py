@@ -3,8 +3,8 @@ import math
 import numpy as np
 
 def clamp(value, min_value, max_value):
-    
     return max(min(value, max_value), min_value)
+    
 def moveTward(value, target, speed):
     if value < target:
         value += speed

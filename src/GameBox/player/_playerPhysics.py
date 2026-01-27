@@ -15,14 +15,14 @@ class playerPhysics:
         
     def update(self):
         #clamp velocities
-        self.player.vel[0] = clamp(self.player.vel[0], -self.maxV, self.maxV)
-        self.player.vel[1] = clamp(self.player.vel[1], -self.maxV, self.maxV)
+        self.player.vel[0] = clamp(self.player.vel[0], -self.maxV[0], self.maxV[0])
+        self.player.vel[1] = clamp(self.player.vel[1], -self.maxV[1], self.maxV[1])
         
         #apply gravity
         self.player.vel[1] += self.gravity
         
         #apply friction
-        self.player.vel -= self.friction
+        self.player.vel *= self.friction
         
         #update position
         self.player.pos += self.player.vel

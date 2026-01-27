@@ -3,6 +3,7 @@ import numpy as np
 
 from ..basics.Net import Global
 from ._playerPhysics import playerPhysics
+from ._playerControler import playerController
 
 
 class Player:
@@ -13,10 +14,11 @@ class Player:
         self.color = color
 
         self.physics = None
+        self.move = playerController(self)
         
         Global.objs.append(self)
 
-    def add_physics(self, speed: float = 7.0, gravity: float = 0.5, jumpForce: float = 10.0, maxV: float = 10.0, friction: float = 0.8):
+    def add_physics(self, speed: float = 7.0, gravity: float = 5.5, jumpForce: float = 10.0, maxV: tuple = (25, 25), friction: tuple = (0.8, 0.8)):
         self.physics = playerPhysics(self, speed, gravity, jumpForce, maxV, friction)
         
     def update(self):
