@@ -13,12 +13,14 @@ from .Game import Game
 from .basics.Cammera import Cammera
 from .basics.Shapes import Rect
 from .helpers.Input import Keys
+from .player.Player import Player
 
 __all__ = [
     "Game", 
     "Cammera",
     "Rect",
-    "Keys"
+    "Keys",
+    "Player"
     
     ]
 

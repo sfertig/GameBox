@@ -1,0 +1,30 @@
+import pygame
+import numpy as np
+
+from ..basics.Net import Global
+from ._playerPhysics import playerPhysics
+
+
+class Player:
+    def __init__(self, pos, dim, color):
+        self.pos = np.array(pos)
+        self.dim = np.array(dim)
+        self.vel = np.array([0.0, 0.0])
+        self.color = color
+
+        self.physics = None
+        
+        Global.objs.append(self)
+
+    def add_physics(self, speed: float = 7.0, gravity: float = 0.5, jumpForce: float = 10.0, maxV: float = 10.0, friction: float = 0.8):
+        self.physics = playerPhysics(self, speed, gravity, jumpForce, maxV, friction)
+        
+    def update(self):
+        if self.physics: self.physics.update()
+        self.draw()
+
+    #--debug func--
+    def draw(self):
+        sp = (self.pos - Global.cam.pos) * Global.cam.zoom
+        ss = self.dim * Global.cam.zoom
+        pygame.draw.rect(Global.screen, self.color, [sp, ss])
