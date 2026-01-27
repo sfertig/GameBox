@@ -32,10 +32,13 @@ class Game:
         for obj in Global.objs:
             if hasattr(obj, 'update'):
                 obj.update()
+        if Global.player: Global.player.update()
+        
         if render: pygame.display.update()
 
     def get_screen(self): return self.screen
     
     def quit(self):
-        pass
+        for tilemap in Global.tilemaps:
+            tilemap._quit()
 

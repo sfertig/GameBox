@@ -16,7 +16,7 @@ class Player:
         self.physics = None
         self.move = playerController(self)
         
-        Global.objs.append(self)
+        Global.player = self
 
     def add_physics(self, speed: float = 7.0, gravity: float = 5.5, jumpForce: float = 10.0, maxV: tuple = (25, 25), friction: tuple = (0.8, 0.8)):
         self.physics = playerPhysics(self, speed, gravity, jumpForce, maxV, friction)

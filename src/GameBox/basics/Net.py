@@ -10,6 +10,8 @@ class _global_:
         self.bg_color: np.array
         self.winTitle: str
 
+        self.player = None
+
         #time info
         self.clock: pygame.time.Clock
         self.dt: float
@@ -19,6 +21,9 @@ class _global_:
         self.collision = []
         self.events = None
         self.cam = None
+
+        #tilemaps
+        self.tilemaps = []
         
 Global = _global_()
 

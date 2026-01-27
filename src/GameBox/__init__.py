@@ -14,13 +14,15 @@ from .basics.Cammera import Cammera
 from .basics.Shapes import Rect
 from .helpers.Input import Keys
 from .player.Player import Player
+from .tilemap.Tilemap import TileMap
 
 __all__ = [
     "Game", 
     "Cammera",
     "Rect",
     "Keys",
-    "Player"
+    "Player",
+    "TileMap"
     
     ]
 
