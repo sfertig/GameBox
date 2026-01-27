@@ -17,6 +17,7 @@ class _global_:
         #game info and data
         self.objs = []
         self.events = None
+        self.cam = None
         
 Global = _global_()
 

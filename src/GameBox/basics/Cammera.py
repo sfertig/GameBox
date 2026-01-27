@@ -1,11 +1,17 @@
 import pygame
 import numpy as np
 
+from .Net import Global
+
 
 class Cammera:
-    def __init__(self, smooth: float = 1.0):
+    def __init__(self, scale: float = 1.0, smooth: float = 1.0):
+
+        Global.cam = self
+
         self.pos = np.array([0.0, 0.0])
         self.smooth = smooth
+        self.zoom = scale
 
         #movement
         self.target = None
