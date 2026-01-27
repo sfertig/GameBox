@@ -2,7 +2,9 @@ import pygame
 import numpy as np
 
 from ..basics.Net import Global
-from ..basics.utils import clamp, moveTward, zeroOut
+from ..basics.utils import clamp
+
+from ..helpers._collisions import CollisionLogic
 
 class playerPhysics:
     def __init__(self, player, speed, gravity, jumpForce, maxV, friction):
@@ -25,5 +27,5 @@ class playerPhysics:
         self.player.vel *= self.friction
         
         #update position
-        self.player.pos += self.player.vel
+        self.player.pos, self.player.vel = CollisionLogic(self.player.vel, self.player.pos, self.player.dim)
                

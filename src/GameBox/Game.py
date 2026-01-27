@@ -21,6 +21,7 @@ class Game:
         Global.clock = self.clock
 
     def update(self, events, render = True, fps=60):
+        Global.collision = []
         #update cam
         Global.cam.update()
 

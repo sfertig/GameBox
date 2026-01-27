@@ -24,13 +24,20 @@ class shape:
         self.color = color
 
 class Rect(shape):
-    def __init__(self, pos, dim, color):
+    def __init__(self, pos, dim, color, collision=True):
         super().__init__(np.array(pos), np.array(dim), color)
+        self.collision = collision
 
         Global.objs.append(self)
 
     def update(self):
         self.draw()
+        self._addCollision()
+
+    def _addCollision(self):
+        if self.collision:
+            rect = pygame.Rect(self.pos, self.dim)
+            Global.collision.append(rect)
 
     def draw(self):
         sp = (self.pos - Global.cam.pos) * Global.cam.zoom
