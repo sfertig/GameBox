@@ -9,6 +9,14 @@ __version__ = "0.10.0"
 __author__ = "Sam Fertig"
 
 #____imports____
-from ._game import Game
+from .Game import Game
+from .basics.Cammera import Cammera
+
+__all__ = [
+    "Game", 
+    "Cammera"
+    
+    ]
+
 
 
