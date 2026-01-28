@@ -16,7 +16,7 @@ class Player:
         self.physics = None
         self.move = playerController(self)
 
-        self.sampleSize = 10
+        self.sampleSize = 5
         
         Global.player = self
 

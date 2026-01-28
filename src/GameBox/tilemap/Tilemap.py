@@ -12,7 +12,6 @@ class TileMap:
         self.tilesetFile = tileSet
         self.mapFile = saveFile
         self.tileDim = (tileDim[0] * tileScale, tileDim[1] * tileScale)
-        self.tileDim = (self.tileDim[0] * Global.cam.zoom, self.tileDim[1] * Global.cam.zoom)
         self.mapDim = mapDim
         self.tilescale = tileScale
         self.orginDim = tileDim
@@ -78,10 +77,11 @@ class TileMap:
                 if self.map[y][x] == 0:
                     continue
                 tile = self.tiles[self.map[y][x]]
-                mx = (x * self.tileDim[0]) - Global.cam.pos[0]
-                my = (y * self.tileDim[1]) - Global.cam.pos[1]
+                mx = ((x * self.tileDim[0]) - Global.cam.pos[0]) * Global.cam.zoom
+                my = ((y * self.tileDim[1]) - Global.cam.pos[1]) * Global.cam.zoom
                 if mx < -self.tileDim[0] or mx > Global.screenDim[0] or my < -self.tileDim[1] or my > Global.screenDim[1]: continue
-                Global.screen.blit(tile, (mx, my))
+                screenTile = pygame.transform.scale(tile, (int(self.tileDim[0] * Global.cam.zoom), int(self.tileDim[1] * Global.cam.zoom)))
+                Global.screen.blit(screenTile, (mx, my))
 
     def _quit(self):
         #save map

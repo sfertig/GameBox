@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 Keys.init()
 
-width, height = 800, 600
+width, height = 1400, 800
 
 game = Game(width, height)
 cam = Cammera()
@@ -28,7 +28,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    player.move.by_WSAD(5)
+    player.move.by_WSAD(2)
 
     game.update(events)
 
