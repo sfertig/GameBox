@@ -4,11 +4,12 @@ import numpy as np
 from ..basics.Net import Global
 
 
-def CollisionLogic(vel, pos, dim):
+def CollisionLogic(vel, pos, dim, sample):
     x, y = pos
     vx, vy = vel
 
     x, y, vx, vy = _Collisions(x, y, vx, vy, dim, Global.collision)
+    #x, y, vx, vy = _tilemapCollisions(x, y, vx, vy, dim, sample)
 
     pos = np.array([x, y])
     vel = np.array([vx, vy])
@@ -49,4 +50,23 @@ def _Collisions(x, y, vx, vy, dim, shapes):
     # Debug draw (optional)
     pygame.draw.rect(Global.screen, "yellow", rect, 1)
 
+    return x, y, vx, vy
+
+def _tilemapCollisions(x, y, vx, vy, dim, sampleSize):
+    for map in Global.tilemaps:
+        #get player tilemap pos
+        tx = x//map.tileDim[0]
+        ty = y//map.tileDim[1]
+        #get tiles around player
+        collisions = []
+        for yIndex in range(-sampleSize, sampleSize):
+            for xIndex in range(-sampleSize, sampleSize):
+                #if point not on map, skip
+                if tx+xIndex < 0 or tx+xIndex >= map.mapDim[0] or ty+yIndex < 0 or ty+yIndex >= map.mapDim[1]: continue
+                #get tile id
+                tileId = map.map[ty+yIndex][tx+xIndex]
+                #if tile is solid, add to collisions
+                if tileId in map.collisionDict: collisions.append(map.collisionDict[tileId])
+        #collision math
+        x, y, vx, vy = _Collisions(x, y, vx, vy, dim, collisions)
     return x, y, vx, vy

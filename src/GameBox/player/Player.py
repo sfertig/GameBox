@@ -15,6 +15,8 @@ class Player:
 
         self.physics = None
         self.move = playerController(self)
+
+        self.sampleSize = 10
         
         Global.player = self
 
@@ -30,3 +32,6 @@ class Player:
         sp = (self.pos - Global.cam.pos) * Global.cam.zoom
         ss = self.dim * Global.cam.zoom
         pygame.draw.rect(Global.screen, self.color, [sp, ss])
+
+    def set_sample_size(self, size):
+        self.sampleSize = size

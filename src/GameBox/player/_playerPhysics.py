@@ -27,5 +27,5 @@ class playerPhysics:
         self.player.vel *= self.friction
         
         #update position
-        self.player.pos, self.player.vel = CollisionLogic(self.player.vel, self.player.pos, self.player.dim)
+        self.player.pos, self.player.vel = CollisionLogic(self.player.vel, self.player.pos, self.player.dim, self.player.sampleSize)
                
