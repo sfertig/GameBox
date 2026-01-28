@@ -11,7 +11,7 @@ __author__ = "Sam Fertig"
 #____imports____
 from .Game import Game
 from .basics.Cammera import Cammera
-from .basics.Shapes import Rect
+from .basics.Shapes import Rect, Circle
 from .helpers.Input import Keys
 from .player.Player import Player
 from .tilemap.Tilemap import TileMap
@@ -20,6 +20,7 @@ __all__ = [
     "Game", 
     "Cammera",
     "Rect",
+    "Circle",
     "Keys",
     "Player",
     "TileMap"

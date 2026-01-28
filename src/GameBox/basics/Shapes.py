@@ -23,6 +23,14 @@ class shape:
     def set_color(self, color):
         self.color = color
 
+    def collide(self, obj):
+        rect = pygame.Rect(self.pos, self.dim)
+        if hasattr(obj, 'pos') and hasattr(obj, 'dim'):
+            obj_rect = pygame.Rect(obj.pos, obj.dim)
+            return rect.colliderect(obj_rect)
+        print(f"<GameBox> Error: Object {obj} does not have pos and dim attributes and can't be collided with")
+        return False
+
 class Rect(shape):
     def __init__(self, pos, dim, color, collision=True):
         super().__init__(np.array(pos), np.array(dim), color)
@@ -43,4 +51,31 @@ class Rect(shape):
         sp = (self.pos - Global.cam.pos) * Global.cam.zoom
         ss = self.dim * Global.cam.zoom
         pygame.draw.rect(Global.screen, self.color, (sp, ss))
+
+    def delete(self):
+        Global.objs.remove(self)
+
+class Circle(shape):
+    def __init__(self, pos, radius, color, collision=True):
+        super().__init__(np.array(pos), np.array([radius, radius]), color)
+        self.collision = collision
+
+        Global.objs.append(self)
+
+    def update(self):
+        self.draw()
+        self._addCollision()
+
+    def _addCollision(self):
+        if self.collision:
+            rect = pygame.Rect(self.pos, self.dim)
+            Global.collision.append(rect)
+
+    def draw(self):
+        sp = (self.pos - Global.cam.pos) * Global.cam.zoom
+        ss = self.dim * Global.cam.zoom
+        pygame.draw.circle(Global.screen, self.color, (sp), ss[0]//2)
+
+    def delete(self):
+        Global.objs.remove(self)
 

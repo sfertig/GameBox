@@ -2,7 +2,7 @@ import pygame
 import numpy as np
 
 from ..basics.Net import Global
-from ..basics.utils import clamp
+from ..basics.utils import clamp, zeroOut
 
 from ..helpers._collisions import CollisionLogic
 
@@ -25,6 +25,10 @@ class playerPhysics:
         
         #apply friction
         self.player.vel *= self.friction
+        
+        #zero out very small velocities to prevent drift
+        self.player.vel[0] = zeroOut(self.player.vel[0], 0.01)
+        self.player.vel[1] = zeroOut(self.player.vel[1], 0.01)
         
         #update position
         self.player.pos, self.player.vel = CollisionLogic(self.player.vel, self.player.pos, self.player.dim, self.player.sampleSize)
