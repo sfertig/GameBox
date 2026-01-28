@@ -1,4 +1,3 @@
-from ast import Break
 import pygame
 import numpy as np
 
@@ -19,43 +18,42 @@ def CollisionLogic(vel, pos, dim, sample):
 
 
 def _Collisions(x, y, vx, vy, dim, shapes):
-
-     # -----------------
-    # Y-axis movement
-    # -----------------
-    y += vy
-    rect = pygame.Rect((x, y), dim)
-
-    for collision in shapes:
-        if rect.colliderect(collision):
-            if vy > 0:  # falling
-                y = collision.top - dim[1]
-            elif vy < 0:  # jumping
-                y = collision.bottom
-            vy = 0
-            rect.y = y
-            break
-    # -----------------
-    # X-axis movement
-    # -----------------
+    # Apply movement
     x += vx
-    rect = pygame.Rect((x, y), dim)
+    y += vy
+
+    rect = pygame.Rect(x, y, dim[0], dim[1])
 
     for collision in shapes:
-        pygame.draw.rect(Global.screen, "red", collision, 1)
-        if rect.colliderect(collision):
-            if vx > 0:
-                x = collision.left - dim[0]
-            elif vx < 0:
-                x = collision.right
+        if not rect.colliderect(collision):
+            continue
+
+        # Calculate overlap on each side
+        overlap_left   = rect.right - collision.left
+        overlap_right  = collision.right - rect.left
+        overlap_top    = rect.bottom - collision.top
+        overlap_bottom = collision.bottom - rect.top
+
+        # Find smallest overlap
+        min_x = min(overlap_left, overlap_right)
+        min_y = min(overlap_top, overlap_bottom)
+
+        # Resolve on the axis with least penetration
+        if min_x < min_y:
+            if overlap_left < overlap_right:
+                rect.right = collision.left
+            else:
+                rect.left = collision.right
             vx = 0
-            rect.x = x
-            break
+        else:
+            if overlap_top < overlap_bottom:
+                rect.bottom = collision.top
+            else:
+                rect.top = collision.bottom
+            vy = 0
 
-    # Debug draw (optional)
-    pygame.draw.rect(Global.screen, "yellow", rect, 1)
+    return rect.x, rect.y, vx, vy
 
-    return x, y, vx, vy
 
 def _tilemapCollisions(x, y, vx, vy, dim, sampleSize):
     for map in Global.tilemaps:
