@@ -15,6 +15,7 @@ from .basics.Shapes import Rect, Circle
 from .helpers.Input import Keys
 from .player.Player import Player
 from .tilemap.Tilemap import TileMap
+from .basics.utils import clamp
 
 __all__ = [
     "Game", 
@@ -23,7 +24,8 @@ __all__ = [
     "Circle",
     "Keys",
     "Player",
-    "TileMap"
+    "TileMap",
+    "clamp"
     
     ]
 

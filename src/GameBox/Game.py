@@ -29,10 +29,15 @@ class Game:
         Global.events = events
         Global.dt = self.clock.tick(fps)/1000.0
         
-        for obj in Global.objs:
-            if hasattr(obj, 'update'):
-                obj.update()
-        if Global.player: Global.player.update()
+        #render layers from 5->1
+        key = 5
+        while key >= 0:
+            for obj in Global.objs[str(key)]:
+                if hasattr(obj, 'update'):
+                    obj.update()
+            key -= 1
+
+        #if Global.player: Global.player.update()
         
         if render: pygame.display.update()
 

@@ -61,7 +61,7 @@ class _keys:
 
         #mouse
         self.mouse_x, self.mouse_y = 0, 0
-    def init(self): Global.objs.append(self)
+    def init(self): Global.objs[str(5)].append(self)
 
     def is_pressed(self, key): 
         if Global.events is None: return False

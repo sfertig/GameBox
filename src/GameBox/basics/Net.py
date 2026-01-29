@@ -17,7 +17,8 @@ class _global_:
         self.dt: float
 
         #game info and data
-        self.objs = []
+        #objs in layers 1-5
+        self.objs = {"0":[], "1":[], "2":[], "3":[], "4":[], "5":[]}
         self.collision = []
         self.events = None
         self.cam = None

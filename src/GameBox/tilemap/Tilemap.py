@@ -8,19 +8,20 @@ from ._collisionDefs import _tileCollisionDefs
 from ._editor import _tilemapEditor
 
 class TileMap:
-    def __init__(self, tileSet: str, tileDim: tuple, tileScale: float, mapDim: tuple, mapFill: int, saveFile = None):
+    def __init__(self, tileSet: str, tileDim: tuple, tileScale: float, mapDim: tuple, mapFill: int, saveFile = None, layer=4):
         self.tilesetFile = tileSet
         self.mapFile = saveFile
         self.tileDim = (tileDim[0] * tileScale, tileDim[1] * tileScale)
         self.mapDim = mapDim
         self.tilescale = tileScale
         self.orginDim = tileDim
+        self.layer = layer
 
         self.tilesetNum = 0
 
         self.editor = None
 
-        Global.objs.append(self)
+        Global.objs[str(layer)].append(self)
 
         self.collisionShapes = _tileCollisionDefs(self.tileDim)
 

@@ -22,7 +22,7 @@ for _ in range(15):
     pos = (Ri(0, width), Ri(0, height))
     radius = Ri(10, 50)
     color = (Ri(0, 255), Ri(0, 255), Ri(0, 255))
-    orbs.append(Circle(pos, radius, color, False))
+    orbs.append(Circle(pos, radius, color))
 
 running = True
 while running:

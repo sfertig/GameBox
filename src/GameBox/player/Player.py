@@ -7,7 +7,7 @@ from ._playerControler import playerController
 
 
 class Player:
-    def __init__(self, pos, dim, color):
+    def __init__(self, pos, dim, color, layer=3):
         self.pos = np.array(pos)
         self.dim = np.array(dim)
         self.vel = np.array([0.0, 0.0])
@@ -17,8 +17,10 @@ class Player:
         self.move = playerController(self)
 
         self.sampleSize = 5
+        self.layer = layer
         
-        Global.player = self
+        Global.objs[str(layer)].append(self)
+        #Global.player = self
 
     def add_physics(self, speed: float = 7.0, gravity: float = 5.5, jumpForce: float = 10.0, maxV: tuple = (25, 25), friction: tuple = (0.8, 0.8)):
         self.physics = playerPhysics(self, speed, gravity, jumpForce, maxV, friction)
