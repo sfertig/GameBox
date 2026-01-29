@@ -29,15 +29,17 @@ class Game:
         Global.events = events
         Global.dt = self.clock.tick(fps)/1000.0
         
-        #render layers from 5->1
-        key = 5
-        while key >= 0:
+        #collect all collision rects first
+        for key in range(5, -1, -1):
+            for obj in Global.objs[str(key)]:
+                if hasattr(obj, '_addCollision'):
+                    obj._addCollision()
+        
+        #then update all objects
+        for key in range(5, -1, -1):
             for obj in Global.objs[str(key)]:
                 if hasattr(obj, 'update'):
                     obj.update()
-            key -= 1
-
-        #if Global.player: Global.player.update()
         
         if render: pygame.display.update()
 

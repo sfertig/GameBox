@@ -59,7 +59,7 @@ class Text:
     def draw(self):
         text = self.font.render(self.text, True, self.color)
         #scale if needed
-        if Global.cam.zoom != 1.0: test = pygame.transform.scale_by(text, Global.cam.zoom)
+        if Global.cam.zoom != 1.0: text = pygame.transform.scale_by(text, Global.cam.zoom)
 
         if self.ui: Global.screen.blit(text, self.pos)
         else:

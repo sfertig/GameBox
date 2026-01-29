@@ -41,7 +41,6 @@ class Rect(shape):
 
     def update(self):
         self.draw()
-        self._addCollision()
 
     def _addCollision(self):
         if self.collision:
@@ -65,7 +64,6 @@ class Circle(shape):
 
     def update(self):
         self.draw()
-        self._addCollision()
 
     def _addCollision(self):
         if self.collision:
