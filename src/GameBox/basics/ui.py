@@ -19,18 +19,51 @@ class _image:
         self.scale += amount
         self.image = pygame.transform.scale(self.image, (int(self.image.get_width() * self.scale), int(self.image.get_height() * self.scale)))
 
+def load_image(image) -> pygame.Surface:
+    if type(image) == str:
+        return pygame.image.load(image)
+    return image
+
 class Image(_image):
     def __init__(self, pos, image, scale, layer=0):
-        super().__init__(pos, image, scale)
+        super().__init__(pos, load_image(image), scale)
         self.layer = layer
         Global.objs[self.layer].append(self)
 
     def update(self):
         self.draw()
-        
+
     def draw(self):
         if Global.cam.zoom != 0:
             image = pygame.transform.scale(self.image, (int(self.image.get_width() * Global.cam.zoom), int(self.image.get_height() * Global.cam.zoom)))
             Global.screen.blit(image, self.pos - Global.cam.pos)
         else:
             Global.screen.blit(self.image, self.pos)
+
+class Text:
+    def __init__(self, pos, text, font, color, ui=True, layer=0):
+        self.pos = np.array(pos)
+        self.text = text
+        self.font = font
+        self.color = color
+        self.layer = layer
+        self.ui = ui
+        Global.objs[str(self.layer)].append(self)
+
+    def change(self, text):
+        self.text = text
+
+    def update(self):
+        self.draw()
+
+    def draw(self):
+        text = self.font.render(self.text, True, self.color)
+        #scale if needed
+        if Global.cam.zoom != 1.0: test = pygame.transform.scale_by(text, Global.cam.zoom)
+
+        if self.ui: Global.screen.blit(text, self.pos)
+        else:
+            sp = self.pos - Global.cam.pos
+            Global.screen.blit(text, sp)
+        
+        

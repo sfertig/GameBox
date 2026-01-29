@@ -14,6 +14,8 @@ cam = Cammera(smooth=0.2)
 player = Player((width/2, height/2), (50, 50), (255, 255, 255))
 player.add_physics(0, 0, 0, (25, 25), (0.7, 0.7))
 
+scoreText = Text((0, 0), "Score: 0", pygame.font.SysFont("Arial", 32), (255, 255, 255))
+score = 0
 
 cam.set_target(player)
 
@@ -37,6 +39,8 @@ while running:
         if orb.collide(player):
             orb.delete()
             orbs.remove(orb)
+            score+=1
+            scoreText.change(f"Score: {score}")
 
     game.update(events, render=True, fps=60)
 
