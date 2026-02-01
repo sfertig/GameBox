@@ -26,12 +26,13 @@ bottom = Rect((0, height), (width, 10), color)
 
 orbs = []
 #fill in list
-for _ in range(45) : # this will be the number of orbs
+for _ in range(5) : # this will be the number of orbs
 	pos = (Ri(0, width), Ri(0, height))
 	size = Ri(25, 50)
 	color = (Ri(0, 255), Ri(0, 255), Ri(0, 255))
 	orbs.append(Rect(pos, (size, size), color, False))
 
+#cam.set_target(player)
 
 running = True
 while running:

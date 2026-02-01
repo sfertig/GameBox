@@ -21,20 +21,23 @@ class Cammera:
         self.offset = None
 
     def update(self):
+        #addon
+        addon = np.array([0, 0])
+        if self.shakeinfo[0]: addon = ((Ri(-1, 1), Ri(-1, 1))) * np.array([self.shakeinfo[2], self.shakeinfo[2]])
+        self.shakeinfo[1]-=1
+        if self.shakeinfo[1]<=0: 
+            self.shakeinfo[0] = False
+            self.pos = np.array(self.shakeinfo[3])
+
         if self.target and hasattr(self.target, "pos"):
             target_pos = self.target.pos
+            self.pos = (self.pos + (target_pos + self.offset - self.pos) * self.smooth)
 
-            #addon
-            addon = np.array([0, 0])
-            if self.shakeinfo[0]: addon = (Ri(-1, 1), Ri(-1, 1)) * np.array([self.shakeinfo[2], self.shakeinfo[2]])
-            self.shakeinfo[1]-=1
-            if self.shakeinfo[1]<=0: self.shakeinfo[0] = False
-
-            self.pos = s(elf.pos + (target_pos + self.offset - self.pos) * self.smooth) * addon
+        self.pos+=addon
 
     def set_target(self, target):
         self.target = target
         self.offset = self.pos - target.pos
 
-    def shake(self, dur, power):
-        self.shakeinfo = np.array([True, dur, power])
+    def shake(self, dur, power, returnPos=(0, 0)):
+        self.shakeinfo = [True, dur, power, returnPos]
