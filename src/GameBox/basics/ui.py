@@ -28,7 +28,7 @@ class Image(_image):
     def __init__(self, pos, image, scale, layer=0):
         super().__init__(pos, load_image(image), scale)
         self.layer = layer
-        Global.objs[self.layer].append(self)
+        Global.objs[str(self.layer)].append(self)
 
     def update(self):
         self.draw()
