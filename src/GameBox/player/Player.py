@@ -7,7 +7,7 @@ from ._playerControler import playerController
 
 
 class Player:
-    def __init__(self, pos, dim, color, layer=3):
+    def __init__(self, pos, dim, color, show=True, layer=3):
         self.pos = np.array(pos)
         self.dim = np.array(dim)
         self.vel = np.array([0.0, 0.0])
@@ -15,6 +15,7 @@ class Player:
 
         self.physics = None
         self.move = playerController(self)
+        self.show = show
 
         self.sampleSize = 5
         self.layer = layer
@@ -27,7 +28,7 @@ class Player:
         
     def update(self):
         if self.physics: self.physics.update()
-        self.draw()
+        if self.show: self.draw()
 
     #--debug func--
     def draw(self):

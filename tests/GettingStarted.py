@@ -19,18 +19,18 @@ scoreUI = Text((0, 0), 'Score: 0', pygame.font.SysFont("Arial", 32), "white")
 
 #create world bounds
 color = "blue"
-top = Rect((0, -10), (width, 10), color)
-left = Rect((-10, 0), (10, height), color)
-right = Rect((width, 0), (10, height), color)
-bottom = Rect((0, height), (width, 10), color)
+top = Rect((0, -10), (width, 10), color, False)
+left = Rect((-10, 0), (10, height), color, False)
+right = Rect((width, 0), (10, height), color, False)
+bottom = Rect((0, height), (width, 10), color, False)
 
 orbs = []
 #fill in list
-for _ in range(5) : # this will be the number of orbs
+for _ in range(45) : # this will be the number of orbs
 	pos = (Ri(0, width), Ri(0, height))
 	size = Ri(25, 50)
 	color = (Ri(0, 255), Ri(0, 255), Ri(0, 255))
-	orbs.append(Rect(pos, (size, size), color, False))
+	orbs.append(Rect(pos, (size, size), color, collision=False))
 
 #cam.set_target(player)
 
@@ -47,7 +47,7 @@ while running:
             orbs.remove(orb)
             score += 1
             scoreUI.change(f"Score: {score}")
-            cam.shake(5, 10)
+            cam.shake(10, 5, (0, 0))
 
     player.move.by_WSAD(3.75)
 

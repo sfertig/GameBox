@@ -4,10 +4,11 @@ import numpy as np
 from .Net import Global
 
 class _image:
-    def __init__(self, pos, image, scale):
+    def __init__(self, pos, image, scale, show):
         self.pos = np.array(pos)
         self.image = pygame.transform.scale(image, (int(image.get_width() * scale), int(image.get_height() * scale)))
         self.scale = scale
+        self.show=show
 
     def move_to(self, pos):
         self.pos = np.array(pos)
@@ -25,13 +26,13 @@ def load_image(image) -> pygame.Surface:
     return image
 
 class Image(_image):
-    def __init__(self, pos, image, scale, layer=0):
-        super().__init__(pos, load_image(image), scale)
+    def __init__(self, pos, image, scale, show=True, layer=0):
+        super().__init__(pos, load_image(image), scale, show)
         self.layer = layer
         Global.objs[str(self.layer)].append(self)
 
     def update(self):
-        self.draw()
+        if self.show: self.draw()
 
     def draw(self):
         if Global.cam.zoom != 0:
@@ -41,7 +42,7 @@ class Image(_image):
             Global.screen.blit(self.image, self.pos)
 
 class Text:
-    def __init__(self, pos, text, font, color, ui=True, layer=0):
+    def __init__(self, pos, text, font, color, show=True, ui=True, layer=0):
         self.pos = np.array(pos)
         self.text = text
         self.font = font
@@ -49,12 +50,13 @@ class Text:
         self.layer = layer
         self.ui = ui
         Global.objs[str(self.layer)].append(self)
+        self.show = show
 
     def change(self, text):
         self.text = text
 
     def update(self):
-        self.draw()
+        if self.show: self.draw()
 
     def draw(self):
         text = self.font.render(self.text, True, self.color)

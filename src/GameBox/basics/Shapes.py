@@ -4,10 +4,11 @@ import numpy as np
 from .Net import Global
 
 class shape:
-    def __init__(self, pos, dim, color):
+    def __init__(self, pos, dim, color, show):
         self.pos = np.array(pos)
         self.dim = np.array(dim)
         self.color = color
+        self.show = show
 
     def move_to(self, x, y):
         self.pos = np.array([x, y])
@@ -32,15 +33,15 @@ class shape:
         return False
 
 class Rect(shape):
-    def __init__(self, pos, dim, color, collision=True, layer=3):
-        super().__init__(np.array(pos), np.array(dim), color)
+    def __init__(self, pos, dim, color, show=True, collision=True, layer=3):
+        super().__init__(np.array(pos), np.array(dim), color, show)
         self.collision = collision
         self.layer = layer
 
         Global.objs[str(layer)].append(self)
 
     def update(self):
-        self.draw()
+        if self.show: self.draw()
 
     def _addCollision(self):
         if self.collision:
@@ -56,14 +57,14 @@ class Rect(shape):
         Global.objs[str(self.layer)].remove(self)
 
 class Circle(shape):
-    def __init__(self, pos, radius, color, layer=3):
+    def __init__(self, pos, radius, color, show=True, layer=3):
         super().__init__(np.array(pos), np.array([radius, radius]), color)
         self.collision = False
         self.layer = layer
         Global.objs[str(layer)].append(self)
 
     def update(self):
-        self.draw()
+        if self.show: self.draw()
 
     def _addCollision(self):
         if self.collision:

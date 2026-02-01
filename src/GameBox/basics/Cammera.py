@@ -23,11 +23,12 @@ class Cammera:
     def update(self):
         #addon
         addon = np.array([0, 0])
-        if self.shakeinfo[0]: addon = ((Ri(-1, 1), Ri(-1, 1))) * np.array([self.shakeinfo[2], self.shakeinfo[2]])
-        self.shakeinfo[1]-=1
-        if self.shakeinfo[1]<=0: 
-            self.shakeinfo[0] = False
-            self.pos = np.array(self.shakeinfo[3])
+        if self.shakeinfo[0]: 
+            addon = ((Ri(-1, 1), Ri(-1, 1))) * np.array([self.shakeinfo[2], self.shakeinfo[2]])
+            self.shakeinfo[1]-=1
+            if self.shakeinfo[1]<=0: 
+                self.shakeinfo[0] = False
+                if self.shakeinfo[3]: self.pos = np.array(self.shakeinfo[3])
 
         if self.target and hasattr(self.target, "pos"):
             target_pos = self.target.pos
@@ -39,5 +40,5 @@ class Cammera:
         self.target = target
         self.offset = self.pos - target.pos
 
-    def shake(self, dur, power, returnPos=(0, 0)):
+    def shake(self, dur, power, returnPos=False):
         self.shakeinfo = [True, dur, power, returnPos]
