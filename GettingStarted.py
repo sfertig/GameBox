@@ -46,6 +46,7 @@ while running:
             orbs.remove(orb)
             score += 1
             scoreUI.change(f"Score: {score}")
+            cam.shake(5, 10)
 
     player.move.by_WSAD(3.75)
 
