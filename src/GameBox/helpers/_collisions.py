@@ -1,5 +1,4 @@
 import pygame
-import numpy as np
 
 from ..basics.Net import Global
 
@@ -11,8 +10,8 @@ def CollisionLogic(vel, pos, dim, sample):
     x, y, vx, vy = _Collisions(x, y, vx, vy, dim, Global.collision)
     x, y, vx, vy = _tilemapCollisions(x, y, vx, vy, dim, sample)
 
-    pos = np.array([x, y], dtype=float)
-    vel = np.array([vx, vy], dtype=float)
+    pos = pygame.Vector2(x, y)
+    vel = pygame.Vector2(vx, vy)
 
     return pos, vel
 
@@ -22,7 +21,7 @@ def _Collisions(x, y, vx, vy, dim, shapes):
     x += vx
     y += vy
 
-    rect = pygame.Rect(x, y, dim[0], dim[1])
+    rect = pygame.Rect(x, y, dim.x, dim.y)
 
     for collision in shapes:
         if not rect.colliderect(collision):

@@ -1,20 +1,19 @@
 import pygame
-import numpy as np
 
 from .Net import Global
 
 class _image:
     def __init__(self, pos, image, scale, show):
-        self.pos = np.array(pos)
+        self.pos = pygame.Vector2(pos)
         self.image = pygame.transform.scale(image, (int(image.get_width() * scale), int(image.get_height() * scale)))
         self.scale = scale
         self.show=show
 
     def move_to(self, pos):
-        self.pos = np.array(pos)
+        self.pos = pygame.Vector2(pos)
     def move_by(self, x, y):
-        self.pos[0]+=x
-        self.pos[1]+=y
+        self.pos.x += x
+        self.pos.y += y
 
     def change_scale(self, amount):
         self.scale += amount
@@ -43,7 +42,7 @@ class Image(_image):
 
 class Text:
     def __init__(self, pos, text, font, color, show=True, ui=True, layer=0):
-        self.pos = np.array(pos)
+        self.pos = pygame.Vector2(pos)
         self.text = text
         self.font = font
         self.color = color

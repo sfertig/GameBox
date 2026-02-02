@@ -1,5 +1,4 @@
 import pygame
-import numpy as np
 from random import randint as Ri
 
 from .Net import Global
@@ -10,11 +9,11 @@ class Cammera:
 
         Global.cam = self
 
-        self.pos = np.array([0.0, 0.0])
+        self.pos = pygame.Vector2(0, 0)
         self.smooth = smooth
         self.zoom = scale
 
-        self.shakeinfo = np.array([False, 0, 0])
+        self.shakeinfo = [False, 0, 0, False]  # [active, duration, power, returnPos]
 
         #movement
         self.target = None
@@ -22,13 +21,13 @@ class Cammera:
 
     def update(self):
         #addon
-        addon = np.array([0, 0])
+        addon = pygame.Vector2(0, 0)
         if self.shakeinfo[0]: 
-            addon = ((Ri(-1, 1), Ri(-1, 1))) * np.array([self.shakeinfo[2], self.shakeinfo[2]])
+            addon = pygame.Vector2(Ri(-1, 1), Ri(-1, 1)) * self.shakeinfo[2]
             self.shakeinfo[1]-=1
             if self.shakeinfo[1]<=0: 
                 self.shakeinfo[0] = False
-                if self.shakeinfo[3]: self.pos = np.array(self.shakeinfo[3])
+                if self.shakeinfo[3]: self.pos = pygame.Vector2(self.shakeinfo[3])
 
         if self.target and hasattr(self.target, "pos"):
             target_pos = self.target.pos

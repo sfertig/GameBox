@@ -1,5 +1,4 @@
 import pygame
-import numpy as np
 
 from .basics.Net import Global
 
@@ -15,7 +14,7 @@ class Game:
         
         #set global
         Global.screen = self.screen
-        Global.screenDim = np.array([width, height])
+        Global.screenDim = pygame.Vector2(width, height)
         Global.bg_color = bg_color
         Global.winTitle = title
         Global.clock = self.clock

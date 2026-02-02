@@ -1,26 +1,25 @@
 import pygame
-import numpy as np
 
 from .Net import Global
 
 class shape:
     def __init__(self, pos, dim, color, show):
-        self.pos = np.array(pos)
-        self.dim = np.array(dim)
+        self.pos = pygame.Vector2(pos)
+        self.dim = pygame.Vector2(dim)
         self.color = color
         self.show = show
 
     def move_to(self, x, y):
-        self.pos = np.array([x, y])
+        self.pos = pygame.Vector2(x, y)
     def move_by(self, x, y):
-        self.pos += np.array([x, y])
+        self.pos += pygame.Vector2(x, y)
     
     def scale(self, factor):
         self.dim *= factor
     def set_dim(self, width, height):
-        self.dim = np.array([width, height])
+        self.dim = pygame.Vector2(width, height)
     def change_dim(self, width, height):
-        self.dim += np.array([width, height])
+        self.dim += pygame.Vector2(width, height)
     def set_color(self, color):
         self.color = color
 
@@ -34,7 +33,7 @@ class shape:
 
 class Rect(shape):
     def __init__(self, pos, dim, color, show=True, collision=True, layer=3):
-        super().__init__(np.array(pos), np.array(dim), color, show)
+        super().__init__(pos, dim, color, show)
         self.collision = collision
         self.layer = layer
 
@@ -58,7 +57,7 @@ class Rect(shape):
 
 class Circle(shape):
     def __init__(self, pos, radius, color, show=True, layer=3):
-        super().__init__(np.array(pos), np.array([radius, radius]), color)
+        super().__init__(pos, pygame.Vector2(radius, radius), color)
         self.collision = False
         self.layer = layer
         Global.objs[str(layer)].append(self)

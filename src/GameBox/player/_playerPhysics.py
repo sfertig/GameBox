@@ -1,5 +1,4 @@
 import pygame
-import numpy as np
 
 from ..basics.Net import Global
 from ..basics.utils import clamp, zeroOut
@@ -17,18 +16,19 @@ class playerPhysics:
         
     def update(self):
         #clamp velocities
-        self.player.vel[0] = clamp(self.player.vel[0], -self.maxV[0], self.maxV[0])
-        self.player.vel[1] = clamp(self.player.vel[1], -self.maxV[1], self.maxV[1])
+        self.player.vel.x = clamp(self.player.vel.x, -self.maxV.x, self.maxV.x)
+        self.player.vel.y = clamp(self.player.vel.y, -self.maxV.y, self.maxV.y)
         
         #apply gravity
-        self.player.vel[1] += self.gravity
+        self.player.vel.y += self.gravity
         
         #apply friction
-        self.player.vel *= self.friction
+        self.player.vel.x *= self.friction.x
+        self.player.vel.y *= self.friction.y
         
         #zero out very small velocities to prevent drift
-        self.player.vel[0] = zeroOut(self.player.vel[0], 0.01)
-        self.player.vel[1] = zeroOut(self.player.vel[1], 0.01)
+        self.player.vel.x = zeroOut(self.player.vel.x, 0.01)
+        self.player.vel.y = zeroOut(self.player.vel.y, 0.01)
         
         #update position
         self.player.pos, self.player.vel = CollisionLogic(self.player.vel, self.player.pos, self.player.dim, self.player.sampleSize)
