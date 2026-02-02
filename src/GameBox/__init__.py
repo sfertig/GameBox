@@ -14,7 +14,6 @@ from .basics.Cammera import Cammera
 from .basics.Shapes import Rect, Circle
 from .helpers.Input import Keys
 from .player.Player import Player
-from .tilemap.Tilemap import TileMap
 from .basics.utils import clamp
 from .basics.ui import Image, Text
 
@@ -25,7 +24,6 @@ __all__ = [
     "Circle",
     "Keys",
     "Player",
-    "TileMap",
     "clamp",
     "Image",
     "Text"

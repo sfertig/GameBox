@@ -23,8 +23,6 @@ class _global_:
         self.events = None
         self.cam = None
 
-        #tilemaps
-        self.tilemaps = []
         
 Global = _global_()
 

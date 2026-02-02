@@ -8,7 +8,7 @@ def CollisionLogic(vel, pos, dim, sample):
     vx, vy = vel
 
     x, y, vx, vy = _Collisions(x, y, vx, vy, dim, Global.collision)
-    x, y, vx, vy = _tilemapCollisions(x, y, vx, vy, dim, sample)
+    #x, y, vx, vy = _tilemapCollisions(x, y, vx, vy, dim, sample)
 
     pos = pygame.Vector2(x, y)
     vel = pygame.Vector2(vx, vy)
