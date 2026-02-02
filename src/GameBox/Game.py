@@ -45,6 +45,7 @@ class Game:
     def get_screen(self): return self.screen
     
     def quit(self):
+        return
         for tilemap in Global.tilemaps:
             tilemap._quit()
 
