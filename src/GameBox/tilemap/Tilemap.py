@@ -8,7 +8,8 @@ class Tilemap:
     def __init__(self, tilesetImage, tileDim, scale, mapDim, fill=0, layer=4, show=True):
         self.tilemap = load_image(tilesetImage)
 
-        self.tileDim = tileDim
+        self.tileDim = pygame.Vector2(tileDim)
+        self.scaleDim = pygame.Vector2(tileDim) * scale
         self.scale = scale
         self.mapDim = mapDim
 
@@ -20,11 +21,16 @@ class Tilemap:
         #load images and create basic tilemap 
         self.map = np.full(mapDim, fill)
         self.tiles: Dict[int, pygame.Surface] = {}
+        self.images: Dict[int, pygame.Surface] = {}
         tile = 1
         #split image into tiles
         for y in range(mapDim[1]):
             for x in range(mapDim[0]):
-                self.tiles[tile] = self.tilemap.subsurface(pygame.Rect(x * tileDim[0], y * tileDim[1], tileDim[0], tileDim[1]))
+                try:
+                    self.images[tile] = self.tilemap.subsurface(pygame.Rect(x * self.tileDim.x, y * self.tileDim.y, self.tileDim.x, self.tileDim.y))
+                    self.tiles[tile] = pygame.transform.scale_by(self.images[tile], self.scale)
+                except:
+                    pass
                 tile += 1
 
     def update(self):
@@ -33,10 +39,12 @@ class Tilemap:
     def draw(self):
         for y in range(self.mapDim[1]):
             for x in range(self.mapDim[0]):
-                sx = x * self.tileDim[0] * self.scale
-                sy = y * self.tileDim[1] * self.scale
-                if sx > Global.screenDim[0] or sx < 0 or sy > Global.screenDim[1] or sy < 0: continue
-                image = self.tiles[self.map[y][x]]
-                Global.screen.blit(image, (sx, sy))
+                if self.map[y][x] == 0:
+                    continue
+                tile = self.tiles[self.map[y][x]]
+                mx = ((x * self.scaleDim.x) - Global.cam.pos.x)
+                my = ((y * self.scaleDim.y) - Global.cam.pos.y)
+                if mx < -self.scaleDim.x or mx > Global.screenDim.x or my < -self.scaleDim.y or my > Global.screenDim.y: continue
+                Global.screen.blit(tile, (mx, my))
             
 

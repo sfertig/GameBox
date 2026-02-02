@@ -1,7 +1,7 @@
 from src.GameBox import *
 import pygame
 
-width, height = 1000, 800
+width, height = 800, 600
 
 game = Game(width, height)
 screen = game.get_screen()
@@ -11,6 +11,8 @@ cam = Cammera()
 player = Player((width / 2, height / 2), (50, 50), "green")
 player.add_physics(0, 0, 0, (25, 25), (0.75, 0.75))
 cam.set_target(player)
+
+map = Tilemap("tests/assets/levelTiles.png", (16, 16), 3.0, (25, 25))
 
 running = True
 while running:
