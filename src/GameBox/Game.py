@@ -46,6 +46,6 @@ class Game:
     
     def quit(self):
         return
-        for tilemap in Global.tilemaps:
-            tilemap._quit()
+        #for tilemap in Global.tilemaps:
+        #    tilemap._quit()
 

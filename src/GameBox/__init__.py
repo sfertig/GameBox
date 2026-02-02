@@ -16,6 +16,8 @@ from .helpers.Input import Keys
 from .player.Player import Player
 from .basics.utils import clamp
 from .basics.ui import Image, Text
+from .basics.sound import Sound
+from .tilemap.Tilemap import Tilemap
 
 __all__ = [
     "Game", 
@@ -26,9 +28,12 @@ __all__ = [
     "Player",
     "clamp",
     "Image",
-    "Text"
+    "Text",
+    "Sound",
+    "Tilemap"
     
     ]
+
 
 
 
