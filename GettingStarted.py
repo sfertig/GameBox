@@ -50,6 +50,7 @@ while running:
             cam.shake(3, 2, (0, 0))
 
     player.move.by_WSAD(3.75)
+    player.move.by_arrows(3.75)
  
     game.update(events, fps=60)
 

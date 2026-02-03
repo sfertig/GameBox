@@ -22,6 +22,11 @@ class Player:
         Global.objs[str(layer)].append(self)
         #Global.player = self
 
+    def copy(self):
+        p = Player(self.pos, self.dim, self.color, self.show, self.layer)
+        p.add_physics(self.physics.speed, self.physics.gravity, self.physics.jumpForce, self.physics.maxV, self.physics.friction)
+        return p
+
     def add_physics(self, speed: float = 7.0, gravity: float = 5.5, jumpForce: float = 10.0, maxV: tuple = (25, 25), friction: tuple = (0.8, 0.8)):
         self.physics = playerPhysics(self, speed, gravity, jumpForce, pygame.Vector2(maxV), pygame.Vector2(friction))
         
