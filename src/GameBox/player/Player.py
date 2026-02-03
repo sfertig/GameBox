@@ -22,6 +22,7 @@ class Player:
         Global.objs[str(layer)].append(self)
         #Global.player = self
 
+
     def copy(self):
         p = Player(self.pos, self.dim, self.color, self.show, self.layer)
         p.add_physics(self.physics.speed, self.physics.gravity, self.physics.jumpForce, self.physics.maxV, self.physics.friction)

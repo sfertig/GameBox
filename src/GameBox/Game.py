@@ -1,6 +1,7 @@
 import pygame
 
 from .basics.Net import Global
+from .basics.Shapes import Rect
 
 class Game:
     def __init__(self, width: int, height: int, bg_color = "black", title = "Game", resizable: bool = False):
@@ -58,4 +59,11 @@ class Game:
         return
         #for tilemap in Global.tilemaps:
         #    tilemap._quit()
+
+    def generate_bounds(self, width, height):
+        color = "blue"
+        Rect(pygame.Vector2(0, -10), pygame.Vector2(width, 10), color, False)
+        Rect(pygame.Vector2(-10, 0), pygame.Vector2(10, height), color, False)
+        Rect(pygame.Vector2(width, 0), pygame.Vector2(10, height), color, False)
+        Rect(pygame.Vector2(0, height), pygame.Vector2(width, 10), color, False)
 

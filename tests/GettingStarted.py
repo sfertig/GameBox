@@ -6,7 +6,7 @@ from src.GameBox import *
 width = 800
 height = 600
 
-game = Game(width, height, resizable=True)
+game = Game(width, height, resizable=False)
 screen = game.get_screen()
 
 cam = Cammera()
@@ -21,12 +21,7 @@ score1 = 0
 score2 = 0
 scoreUI = Text(pygame.Vector2(0, 0), 'player1: 0  |  player2: 0', pygame.font.SysFont("Arial", 32), "white")
 
-#create world bounds
-color = "blue"
-top = Rect(pygame.Vector2(0, -10), pygame.Vector2(width, 10), color, False)
-left = Rect(pygame.Vector2(-10, 0), pygame.Vector2(10, height), color, False)
-right = Rect(pygame.Vector2(width, 0), pygame.Vector2(10, height), color, False)
-bottom = Rect(pygame.Vector2(0, height), pygame.Vector2(width, 10), color, False)
+game.generate_bounds(width, height)
 
 orbs = []
 #fill in list
@@ -44,7 +39,7 @@ while running:
     for event in events:
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.VIDEORESIZE: game.rescale(event)
+        #if event.type == pygame.VIDEORESIZE: game.rescale(event)
 
     for orb in orbs[:]:
         if orb.collide(player1):
