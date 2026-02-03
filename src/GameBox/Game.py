@@ -6,7 +6,10 @@ class Game:
     def __init__(self, width: int, height: int, bg_color = "black", title = "Game", resizable: bool = False):
         pygame.init()
         flags = pygame.RESIZABLE if resizable else 0
-        self.screen = pygame.display.set_mode((width, height), flags)
+        self.flags = flags
+        self.screen = pygame.Surface((width, height))
+        self.width, self.height = width, height
+        self.display = pygame.display.set_mode((width, height), flags)
         self.clock = pygame.time.Clock()
         self.running = True
         self.bg_color = bg_color
@@ -40,9 +43,16 @@ class Game:
                 if hasattr(obj, 'update'):
                     obj.update()
         
-        if render: pygame.display.update()
+        if render: 
+            self.display.blit(pygame.transform.scale(self.screen, (self.width, self.height)), (0, 0))
+            pygame.display.update()
 
     def get_screen(self): return self.screen
+
+    def rescale(self, event):
+        self.width = event.w
+        self.height = event.h
+        self.display = pygame.display.set_mode((self.width, self.height), self.flags)
     
     def quit(self):
         return
