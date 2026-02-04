@@ -60,10 +60,9 @@ class Game:
         #for tilemap in Global.tilemaps:
         #    tilemap._quit()
 
-    def generate_bounds(self, width, height):
-        color = "blue"
-        Rect(pygame.Vector2(0, -10), pygame.Vector2(width, 10), color, False)
-        Rect(pygame.Vector2(-10, 0), pygame.Vector2(10, height), color, False)
-        Rect(pygame.Vector2(width, 0), pygame.Vector2(10, height), color, False)
-        Rect(pygame.Vector2(0, height), pygame.Vector2(width, 10), color, False)
+    def generate_bounds(self, width, height, color="black", show=False):
+        Rect(pygame.Vector2(0, -10), pygame.Vector2(width, 10), color, show)
+        Rect(pygame.Vector2(-10, 0), pygame.Vector2(10, height), color, show)
+        Rect(pygame.Vector2(width, 0), pygame.Vector2(10, height), color, show)
+        Rect(pygame.Vector2(0, height), pygame.Vector2(width, 10), color, show)
 
