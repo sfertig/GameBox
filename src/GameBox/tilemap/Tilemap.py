@@ -1,3 +1,4 @@
+from tkinter import OFF
 import pygame
 import numpy as np
 import json
@@ -7,6 +8,8 @@ from ..basics.ui import load_image
 from ..basics.utils import show
 
 from ._collisionDefs import _tileCollisionDefs
+
+OFFSETS = [(0, 0), (1, 0), (0,1), (1,1), (-1, -1), (-1, 0), (0, -1), (-1, 1), (1, -1)]
 
 class Tilemap:
     def __init__(self, tilesetImage, tileDim, scale, layer=4, show=True):
@@ -35,6 +38,11 @@ class Tilemap:
                 self.images[tile] = self.tilemap.subsurface(pygame.Rect(x * self.tileDim.x, y * self.tileDim.y, self.tileDim.x, self.tileDim.y))
                 self.tiles[tile] = pygame.transform.scale_by(self.images[tile], self.scale)
                 tile += 1
+
+    def get_collisions_around(self, pos):
+        for i in OFFSETS:
+            n = pos+i
+            print(n)
 
     def load_from_dict(self, data):
         self._private_load(None, data['map'], data['collisions'])

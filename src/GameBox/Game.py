@@ -11,6 +11,7 @@ class Game:
         self.screen = pygame.Surface((width, height))
         self.width, self.height = width, height
         self.display = pygame.display.set_mode((width, height), flags)
+        pygame.display.set_caption(title)
         self.clock = pygame.time.Clock()
         self.running = True
         self.bg_color = bg_color
