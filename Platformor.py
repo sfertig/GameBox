@@ -10,7 +10,7 @@ cam = Cammera()
 
 player = Player((width / 2, height / 2), (50, 50), "green")
 player.add_physics(0, 0, 0, (25, 25), (0.75, 0.75))
-#cam.set_target(player)
+cam.set_target(player)
 
 map = Tilemap("tests/assets/levelTiles.png", (16, 16), 3.0)
 map.load_from_json("tests/assets/map1.json")

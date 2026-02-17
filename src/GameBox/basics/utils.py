@@ -16,3 +16,8 @@ def zeroOut(value, max):
     if value < 0 and value > -max: value = 0
     if value > 0 and value < max: value = 0
     return value
+
+def show(pos, size, screenDim):
+    if pos.x < -size.x or pos.x > screenDim.x + size.x or pos.y < -size.y or pos.y > screenDim.y + size.y: return False
+    return True
+
