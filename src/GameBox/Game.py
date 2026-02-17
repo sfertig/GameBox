@@ -33,13 +33,13 @@ class Game:
         Global.dt = self.clock.tick(fps)/1000.0
         
         #collect all collision rects first
-        for key in range(5, -1, -1):
+        for key in range(len(Global.objs)-1, -1, -1):
             for obj in Global.objs[str(key)]:
                 if hasattr(obj, '_addCollision'):
                     obj._addCollision()
         
         #then update all objects
-        for key in range(5, -1, -1):
+        for key in range(len(Global.objs)-1, -1, -1):
             for obj in Global.objs[str(key)]:
                 if hasattr(obj, 'update'):
                     obj.update()
@@ -56,7 +56,7 @@ class Game:
         Altering this class during runtime may result in unpredictable behavior and unintended consequences.
         It is recommended to utilize this class for accessing objects and their attributes within the game runtime.
         """
-        
+        print("<GameBox/Game> Warning: You have accsesed the 'Global' class. This contains data that if modified may break the game or cause unexpected behavior. Please use with caution.")
         return Global
 
     def rescale(self, event):
