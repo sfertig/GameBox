@@ -83,7 +83,7 @@ class Tilemap:
                 shape = getattr(self.collisionDefs, self.collisions[str(tile['type'])]).copy()
                 shape.x += x
                 shape.y += y
-                pygame.draw.rect(Global.screen, (255, 0, 0), shape, 1)
+                #pygame.draw.rect(Global.screen, (255, 0, 0), shape, 1)
             
             
 

@@ -7,6 +7,9 @@ def CollisionLogic(vel, pos, dim):
     x, y = pos
     vx, vy = vel
 
+    x += vx
+    y += vy
+
     x, y, vx, vy = _Collisions(x, y, vx, vy, dim, Global.collision)
     x, y, vx, vy = _tilemapCollisions(x, y, vx, vy, dim)
 
@@ -17,13 +20,15 @@ def CollisionLogic(vel, pos, dim):
 
 
 def _Collisions(x, y, vx, vy, dim, shapes):
-    # Apply movement
-    x += vx
-    y += vy
 
     rect = pygame.Rect(x, y, dim.x, dim.y)
 
     for collision in shapes:
+        #debug draw rect
+        Crect = collision.copy()
+        Crect.x -= Global.cam.pos.x
+        Crect.y -= Global.cam.pos.y
+        pygame.draw.rect(Global.screen, "yellow", Crect, 15)
         if not rect.colliderect(collision):
             continue
 
