@@ -31,5 +31,5 @@ class playerPhysics:
         self.player.vel.y = zeroOut(self.player.vel.y, 0.01)
         
         #update position
-        self.player.pos, self.player.vel = CollisionLogic(self.player.vel, self.player.pos, self.player.dim, self.player.sampleSize)
+        self.player.pos, self.player.vel = CollisionLogic(self.player.vel, self.player.pos, self.player.dim)
                

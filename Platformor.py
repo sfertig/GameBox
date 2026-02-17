@@ -24,7 +24,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    player.move.by_WSAD(3.80)
+    player.move.by_WSAD(3.0)
 
     game.update(events)
 

@@ -3,12 +3,12 @@ import pygame
 from ..basics.Net import Global
 
 
-def CollisionLogic(vel, pos, dim, sample):
+def CollisionLogic(vel, pos, dim):
     x, y = pos
     vx, vy = vel
 
     x, y, vx, vy = _Collisions(x, y, vx, vy, dim, Global.collision)
-    #x, y, vx, vy = _tilemapCollisions(x, y, vx, vy, dim, sample)
+    x, y, vx, vy = _tilemapCollisions(x, y, vx, vy, dim)
 
     pos = pygame.Vector2(x, y)
     vel = pygame.Vector2(vx, vy)
@@ -54,25 +54,10 @@ def _Collisions(x, y, vx, vy, dim, shapes):
     return rect.x, rect.y, vx, vy
 
 
-def _tilemapCollisions(x, y, vx, vy, dim, sampleSize):
+def _tilemapCollisions(x, y, vx, vy, dim):
     for map in Global.tilemaps:
         #get player tilemap pos
         tx = x//map.tileDim[0]
         ty = y//map.tileDim[1]
-        #get tiles around player
-        collisions = []
-        for yIndex in range(-sampleSize, sampleSize):
-            for xIndex in range(-sampleSize, sampleSize):
-                #if point not on map, skip
-                if tx+xIndex < 0 or tx+xIndex >= map.mapDim[0] or ty+yIndex < 0 or ty+yIndex >= map.mapDim[1]: continue
-                #get shape
-                tile = str(map.map[int(ty+yIndex)][int(tx+xIndex)])
-                if tile not in map.collisionDict: continue
-                shape = map.collisionDict[str(tile)]
-                rect = getattr(map.collisionShapes, shape).copy()
-                rect.x += (tx+xIndex)*map.tileDim[0]
-                rect.y += (ty+yIndex)*map.tileDim[1]
-                collisions.append(rect)
-        #collision math
-        x, y, vx, vy = _Collisions(x, y, vx, vy, dim, collisions)
+        x, y, vx, vy = _Collisions(x, y, vx, vy, dim, map.get_collisions_around((pygame.Vector2(tx, ty))))
     return x, y, vx, vy

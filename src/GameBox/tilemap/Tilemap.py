@@ -40,9 +40,17 @@ class Tilemap:
                 tile += 1
 
     def get_collisions_around(self, pos):
+        collisions = []
         for i in OFFSETS:
-            n = pos+i
-            print(n)
+            n = (int(pos.x+i[0]), int(pos.y+i[1]))
+            if not f"{n[0]};{n[1]}" in self.map: continue
+            tile = self.map[f"{n[0]};{n[1]}"]
+            if str(tile['type']) in self.collisions:
+                rect = getattr(self.collisionDefs, self.collisions[str(tile['type'])]).copy()
+                rect.x *= self.scaleDim.x
+                rect.y *= self.scaleDim.y
+                collisions.append(rect)
+        return collisions
 
     def load_from_dict(self, data):
         self._private_load(None, data['map'], data['collisions'])
