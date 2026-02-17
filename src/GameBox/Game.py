@@ -50,6 +50,15 @@ class Game:
 
     def get_screen(self): return self.screen
 
+    def _fetch_global(self):
+        """
+        Caution: This class is highly experimental and should be used with utmost cautiousness.
+        Altering this class during runtime may result in unpredictable behavior and unintended consequences.
+        It is recommended to utilize this class for accessing objects and their attributes within the game runtime.
+        """
+        
+        return Global
+
     def rescale(self, event):
         self.width = event.w
         self.height = event.h
