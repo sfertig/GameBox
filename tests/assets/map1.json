@@ -1,1 +1,1 @@
-{"map": {"0;0": {"type": 1, "pos": [0, 0]}, "10;10": {"type": 7, "pos": [10, 10]}}, "collisions": {}}
+{"map": {"0;0": {"type": 1, "pos": [0, 0]}, "10;10": {"type": 7, "pos": [10, 10]}}, "collisions": {"1": "full", "7":"halfLeft"}}

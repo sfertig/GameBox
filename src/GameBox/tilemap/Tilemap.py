@@ -6,6 +6,8 @@ from ..basics.Net import Global
 from ..basics.ui import load_image
 from ..basics.utils import show
 
+from ._collisionDefs import _tileCollisionDefs
+
 class Tilemap:
     def __init__(self, tilesetImage, tileDim, scale, layer=4, show=True):
         self.tilemap = load_image(tilesetImage)
@@ -17,13 +19,16 @@ class Tilemap:
         self.layer = layer
         self.show = show
         Global.objs[str(self.layer)].append(self)
+        Global.tilemaps.append(self)
 
         #load images and create basic tilemap 
         self.map = {}
         self.mapPath = None
+        self.collisions = {}
+        self.collisionDefs = _tileCollisionDefs(self.scaleDim)
         self.tiles: Dict[int, pygame.Surface] = {}
         self.images: Dict[int, pygame.Surface] = {}
-        tile = 1
+        tile = 0
         #split image into tiles
         for y in range(int(self.tilemap.get_height() // self.tileDim.y)):
             for x in range(int(self.tilemap.get_width() // self.tileDim.x)):
@@ -32,16 +37,18 @@ class Tilemap:
                 tile += 1
 
     def load_from_dict(self, data):
-        self._private_load(None, data)
+        self._private_load(None, data['map'], data['collisions'])
 
     def load_from_json(self, path):
         with open(path, 'r') as f:
-            data = json.load(f)['map']
-        self._private_load(path, data)
+            data = json.load(f)
+        self._private_load(path, data['map'], data['collisions'])
 
     #private load func
-    def _private_load(self, Path, data):
+    def _private_load(self, Path, data, collisions):
         self.map = data
+        print(collisions)
+        self.collisions = collisions
         self.mapPath = Path
 
     def update(self):
@@ -56,6 +63,11 @@ class Tilemap:
             y = (pos[1] * self.scaleDim.y) - Global.cam.pos.y
             if not show(pygame.Vector2(x, y), self.scaleDim, Global.screenDim): continue
             Global.screen.blit(image, (x, y))
+            if str(tile['type']) in self.collisions:
+                shape = getattr(self.collisionDefs, self.collisions[str(tile['type'])]).copy()
+                shape.x += x
+                shape.y += y
+                pygame.draw.rect(Global.screen, (255, 0, 0), shape, 1)
             
             
 

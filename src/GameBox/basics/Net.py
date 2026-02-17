@@ -22,6 +22,7 @@ class _global_:
         self.collision = []
         self.events = None
         self.cam = None
+        self.tilemaps = []
 
         
 Global = _global_()
