@@ -5,18 +5,31 @@ width, height = 800, 600
 
 game = Game(width, height)
 G = game._fetch_global()
-G.objs = {"0":[], "1":[], "2":[], "3":[], "4":[], "5":[], "6":[], "7":[]}
 screen = game.get_screen()
 
-cam = Cammera()
+cam = Cammera(smooth=0.2)
 
-player = Player((width / 2, height / 2), (50, 50), "green", layer=7)
-player.add_physics(0, 0, 0, (25, 25), (0.75, 0.75))
-cam.set_target(player)
+class _player:
+    def __init__(self, pos, dim, color):
+        self.pos = pygame.Vector2(pos)
+        self.dim = pygame.Vector2(dim)
+        self.color = color
+        G.objs["4"].append(self)
 
-map = Tilemap("tests/assets/levelTiles.png", (16, 16), 3.0)
-map.load_from_json("tests/assets/map1.json")
+    def rect(self):
+        return pygame.Rect(self.pos, self.dim)
 
+    def update(self):
+        r = self.rect()
+        r.x -= G.cam.pos.x
+        r.y -= G.cam.pos.y
+        pygame.draw.rect(screen, self.color, r)
+
+p = _player((width / 2, height / 2), (50, 50), "green")
+speed = 500
+cam.set_target(p)
+
+r = Rect((0, 0), (50, 50), "red")
 
 running = True
 while running:
@@ -25,7 +38,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    player.move.by_WSAD(3.8)
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]: p.pos.y -= speed * G.dt
+    if keys[pygame.K_s]: p.pos.y += speed * G.dt
+    if keys[pygame.K_a]: p.pos.x -= speed * G.dt
+    if keys[pygame.K_d]: p.pos.x += speed * G.dt
 
     game.update(events)
 
