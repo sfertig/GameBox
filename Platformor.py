@@ -1,5 +1,8 @@
 from src.GameBox import *
 import pygame
+import os
+
+Keys.init()
 
 width, height = 800, 600
 
@@ -13,7 +16,7 @@ player = Player((width/2, height/2), (50, 50), "green")
 player.add_physics(0, 0, 0, (20, 20))
 cam.set_target(player)
 
-map = Tilemap("tests/assets/levelTiles.png", (16, 16), 4.0, show = False)
+map = Tilemap("tests/assets/levelTiles.png", (16, 16), 4.0)
 map.load_from_json("tests/assets/map1.json")
 
 r = Rect((width/2, 0), (75, 35), "blue", show=False)
@@ -26,9 +29,13 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+    if Keys.is_pressed(Keys.c):
+        os.system("cls")
+        
     player.move.by_WSAD(3.0)
 
     game.update(events)
 
 game.quit()
 pygame.quit()
+os.system("cls")

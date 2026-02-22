@@ -9,7 +9,7 @@ from ..basics.utils import show
 
 from ._collisionDefs import _tileCollisionDefs
 
-OFFSETS = [(x, y) for x in range(-2, 3) for y in range(-2, 3)]
+OFFSETS = [(x, y) for x in range(-3, 4) for y in range(-3, 4)]
 
 class Tilemap:
     def __init__(self, tilesetImage, tileDim, scale, layer=4, show=True):
@@ -42,14 +42,14 @@ class Tilemap:
     def get_collisions_around(self, pos):
         collisions = []
         for i in OFFSETS:
-            n = (int(pos.x+i[0]), int(pos.y+i[1]))
+            n = (int(pos.x)+i[0], int(pos.y)+i[1])
             if not f"{n[0]};{n[1]}" in self.map: continue
             tile = self.map[f"{n[0]};{n[1]}"]
             if str(tile['type']) in self.collisions:
                 rect = getattr(self.collisionDefs, self.collisions[str(tile['type'])]).copy()
-                rect.x *= self.scaleDim.x
-                rect.y *= self.scaleDim.y
-                collisions.append(rect)
+                rect.x += tile['pos'][0]*self.scaleDim.x
+                rect.y += tile['pos'][1]*self.scaleDim.y
+                collisions.append(rect.copy())
         return collisions
 
     def load_from_dict(self, data):
@@ -63,7 +63,7 @@ class Tilemap:
     #private load func
     def _private_load(self, Path, data, collisions):
         self.map = data
-        print(collisions)
+        print(data)
         self.collisions = collisions
         self.mapPath = Path
 

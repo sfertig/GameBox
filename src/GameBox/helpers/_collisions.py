@@ -62,7 +62,7 @@ def _Collisions(x, y, vx, vy, dim, shapes):
 def _tilemapCollisions(x, y, vx, vy, dim):
     for map in Global.tilemaps:
         #get player tilemap pos
-        tx = x//map.tileDim[0]
-        ty = y//map.tileDim[1]
+        tx = x//map.tileDim.x
+        ty = y//map.tileDim.y
         x, y, vx, vy = _Collisions(x, y, vx, vy, dim, map.get_collisions_around((pygame.Vector2(tx, ty))))
     return x, y, vx, vy
