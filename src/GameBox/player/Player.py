@@ -16,7 +16,6 @@ class Player:
         self.move = playerController(self)
         self.show = show
 
-        self.sampleSize = 5
         self.layer = layer
         
         Global.objs[str(layer)].append(self)
@@ -40,6 +39,3 @@ class Player:
         sp = (self.pos - Global.cam.pos) * Global.cam.zoom
         ss = self.dim * Global.cam.zoom
         pygame.draw.rect(Global.screen, self.color, [sp, ss])
-
-    def set_sample_size(self, size):
-        self.sampleSize = size
