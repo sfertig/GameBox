@@ -9,11 +9,11 @@ screen = game.get_screen()
 
 cam = Cammera(smooth=0.2)
 
-player = Player((width/2, height/2), (50, 50), "green", layer=0, show=False)
+player = Player((width/2, height/2), (50, 50), "green")
 player.add_physics(0, 0, 0, (20, 20))
 cam.set_target(player)
 
-map = Tilemap("tests/assets/levelTiles.png", (16, 16), 4.0)
+map = Tilemap("tests/assets/levelTiles.png", (16, 16), 4.0, show = False)
 map.load_from_json("tests/assets/map1.json")
 
 r = Rect((width/2, 0), (75, 35), "blue", show=False)

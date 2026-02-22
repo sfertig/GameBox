@@ -9,7 +9,7 @@ from ..basics.utils import show
 
 from ._collisionDefs import _tileCollisionDefs
 
-OFFSETS = [(0, 0), (1, 0), (0,1), (1,1), (-1, -1), (-1, 0), (0, -1), (-1, 1), (1, -1)]
+OFFSETS = [(x, y) for x in range(-2, 3) for y in range(-2, 3)]
 
 class Tilemap:
     def __init__(self, tilesetImage, tileDim, scale, layer=4, show=True):
@@ -79,11 +79,11 @@ class Tilemap:
             y = (pos[1] * self.scaleDim.y) - Global.cam.pos.y
             if not show(pygame.Vector2(x, y), self.scaleDim, Global.screenDim): continue
             Global.screen.blit(image, (x, y))
-            if str(tile['type']) in self.collisions:
+            """if str(tile['type']) in self.collisions:
                 shape = getattr(self.collisionDefs, self.collisions[str(tile['type'])]).copy()
                 shape.x += x
                 shape.y += y
-                #pygame.draw.rect(Global.screen, (255, 0, 0), shape, 1)
+                #pygame.draw.rect(Global.screen, (255, 0, 0), shape, 1)"""
             
             
 
