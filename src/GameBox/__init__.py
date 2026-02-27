@@ -14,6 +14,7 @@ from .Node2d.Node2D import Node2D
 from .basics.Camera import Camera
 from .Node2d.Shapes import Rect, Circle
 from .controle.input import Keys
+from .controle.Tree import Tree
 
 __all__ = [
     "Game",
@@ -21,5 +22,6 @@ __all__ = [
     "Camera",
     "Rect",
     "Circle",
-    "Keys"
+    "Keys",
+    "Tree"
     ]
