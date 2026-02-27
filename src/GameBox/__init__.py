@@ -12,11 +12,12 @@ __author__ = "Sam Fertig"
 from .Game import Game
 from .Node2d.Node2D import Node2D
 from .basics.Camera import Camera
-from .Node2d.Shapes import Rect
+from .Node2d.Shapes import Rect, Circle
 
 __all__ = [
     "Game",
     "Node2D",
     "Camera",
-    "Rect"
+    "Rect",
+    "Circle"
     ]

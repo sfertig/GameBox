@@ -7,7 +7,8 @@ game = Game(width, height, "blue", "BasicScreen")
 
 cam = Camera()
 
-test = Rect((0, 0), (100, 100), "red", 0)
+test = Rect((0, 0), (100, 100), "red", 0, ui=True)
+c = Circle((0, 0), 125, "green", 1)
 
 while True:
     events = pygame.event.get()
