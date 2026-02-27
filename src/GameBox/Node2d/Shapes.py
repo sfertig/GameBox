@@ -12,9 +12,8 @@ class Rect(Node2D):
         except:
             Global.errors.raiseError("Layer not found: " + str(layer), "Rect")
 
-        self.size = size
+        self.size = pygame.Vector2(size)
         self.color = color
-        self.rect = pygame.Rect(pos, size)
 
     def update(self):
         if self.show: self.render()
@@ -22,7 +21,7 @@ class Rect(Node2D):
     def render(self):
         if not self.ui: sp = self.pos - Global.cam.pos
         else: sp = self.pos
-        pygame.draw.rect(Global.screen, self.color, (sp, self.size))
+        pygame.draw.rect(Global.screen, self.color, ((sp-self.size/2), self.size))
 #endregion
 
 #region Circle
