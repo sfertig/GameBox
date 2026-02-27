@@ -13,11 +13,13 @@ from .Game import Game
 from .Node2d.Node2D import Node2D
 from .basics.Camera import Camera
 from .Node2d.Shapes import Rect, Circle
+from .controle.input import Keys
 
 __all__ = [
     "Game",
     "Node2D",
     "Camera",
     "Rect",
-    "Circle"
+    "Circle",
+    "Keys"
     ]

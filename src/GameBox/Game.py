@@ -1,10 +1,12 @@
 import pygame
 
 from .Net import Global
+from .controle.input import Keys
 
 class Game:
     def __init__(self, width: int, height: int, bg_color = "black", title = "Game", resizable: bool = False):
         pygame.init()
+        Keys.init()
         flags = pygame.RESIZABLE if resizable else 0
         self.flags = flags
         self.screen = pygame.Surface((width, height))
