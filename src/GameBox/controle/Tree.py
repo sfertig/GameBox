@@ -2,10 +2,10 @@ import pygame
 from ..Net import Global
 
 class Tree:
-    def __init__(self, root):
+    def __init__(self, root, branches=[]):
         self.root = root
         self.rPos = root.pos.copy()
-        self.branches = []
+        self.branches = [*branches]
         Global.objs["0"].append(self)
 
     def add_branch(self, branch):

@@ -7,12 +7,10 @@ game = Game(width, height, "blue", "BasicScreen")
 
 cam = Camera()
 
-rect = Rect((0, 0), (100, 100), "red", 0)
-t = Tree(rect)
-c = Circle((0, 0), 125, "green", 1)
-t.add_branch(c)
-c2 = Circle((0, 0), 110, "blue", 1)
-t.add_branch(c2)
+image = Sprite2D((0, 0), "tests/assets/coin.png")
+back = Circle((0, 0), 100, "red", 5)
+t = Tree(image, [back])
+
 
 speed = 5
 
@@ -24,10 +22,10 @@ while True:
             pygame.quit()
             sys.exit()
 
-    if Keys.is_held(Keys.d): rect.pos.x += speed
-    if Keys.is_held(Keys.a): rect.pos.x -= speed
-    if Keys.is_held(Keys.w): rect.pos.y -= speed
-    if Keys.is_held(Keys.s): rect.pos.y += speed
+    if Keys.is_held(Keys.d): image.pos.x += speed
+    if Keys.is_held(Keys.a): image.pos.x -= speed
+    if Keys.is_held(Keys.w): image.pos.y -= speed
+    if Keys.is_held(Keys.s): image.pos.y += speed
         
 
     game.update(events)

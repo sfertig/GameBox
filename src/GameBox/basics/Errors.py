@@ -17,6 +17,10 @@ class Error(Exception):  # ← inherit from Exception
 def raiseError(message, dest):
     raise Error(message, dest)
 
+def ValueError(message, dest):
+    print(f"{NAME}: {dest}: {message}")
+
 class Errors:
     def __init__(self):
         self.raiseError = raiseError
+        self.ValueError = ValueError

@@ -24,6 +24,9 @@ class _global_:
         self.cam = None
 
         #errors
-        self.errors = Errors()        
+        self.errors = Errors()   
+
+        #assets
+        self.assets = {}     
 
 Global = _global_()
