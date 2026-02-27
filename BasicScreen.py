@@ -7,7 +7,7 @@ game = Game(width, height, "blue", "BasicScreen")
 
 cam = Camera()
 
-test = Node2D((0, 0), 0)
+test = Node2D((0, 0), 10)
 
 while True:
     events = pygame.event.get()
