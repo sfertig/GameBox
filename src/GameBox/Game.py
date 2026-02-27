@@ -32,6 +32,12 @@ class Game:
         self.screen.fill(Global.bg_color)
         Global.events = events
         Global.dt = self.clock.tick(fps)/1000.0
+
+        #update all objects
+        for key in range(len(Global.objs)-1, -1, -1):
+            for obj in Global.objs[str(key)]:
+                if hasattr(obj, 'update'):
+                    obj.update()
         
         if render: 
             self.display.blit(pygame.transform.scale(self.screen, (self.width, self.height)), (0, 0))

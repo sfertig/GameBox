@@ -7,7 +7,7 @@ game = Game(width, height, "blue", "BasicScreen")
 
 cam = Camera()
 
-test = Node2D((0, 0), 10)
+test = Rect((0, 0), (100, 100), "red", 0)
 
 while True:
     events = pygame.event.get()
@@ -16,5 +16,6 @@ while True:
             game.quit()
             pygame.quit()
             sys.exit()
+        
 
     game.update(events)
