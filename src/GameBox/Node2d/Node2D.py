@@ -3,10 +3,11 @@ import pygame
 from ..Net import Global
 
 class Node2D:
-    def __init__(self, pos, layer, ui=False):
+    def __init__(self, pos, layer, ui=False, show=True):
         self.pos = pygame.Vector2(pos)
         self.layer = layer
         self.ui = ui
+        self.show = show
 
         try:
             Global.objs[str(layer)].append(self)
