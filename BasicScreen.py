@@ -8,9 +8,11 @@ game = Game(width, height, "blue", "BasicScreen")
 
 cam = Camera()
 
+re = Tree(Circle((width/2, height/2), 50, 'green', 2), [Circle((width/2, height/2), 65, 'gray')])
+
 image = Sprite2D((0, 0), "tests/assets/coin.png")
-col = CollisionShape_Rect((0, 0), (100, 100), True)
-t = Tree(image, [col])
+col = CollisionShape_Rect((0, 0), (100, 100), False)
+t = Tree(image, [col, re])
 
 
 speed = 5
@@ -31,4 +33,4 @@ while True:
     if Keys.is_pressed(Keys.e): image.rescale(image.scale/2.0)
         
 
-    game.update(events)
+    game.update(events, fps=60)

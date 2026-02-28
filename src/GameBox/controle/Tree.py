@@ -4,7 +4,10 @@ from ..Net import Global
 class Tree:
     def __init__(self, root, branches=[]):
         self.root = root
-        self.rPos = root.pos.copy()
+        try:
+            self.rPos = root.pos.copy()
+        except:
+            Global.errors.raiseError("Root not found: " + f"{str(root)}: Type {type(root)}", "Tree")
         self.branches = [*branches]
         Global.objs["0"].append(self)
 
@@ -19,7 +22,12 @@ class Tree:
             if self.root.pos != self.rPos:
                 movement = self.root.pos - self.rPos
                 for branch in self.branches:
-                    branch.pos += movement
+                    if hasattr(branch, "pos"):
+                        branch.pos += movement
+                    elif type(branch) == Tree:
+                        branch.root.pos += movement
+                    else:
+                        Global.errors.raiseError("Branch not found: " + f"{str(branch)}: Type {type(branch)}", "Tree")
             self.rPos = self.root.pos.copy()
 
     def _del_global_(self):

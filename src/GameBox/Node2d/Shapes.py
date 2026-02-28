@@ -5,7 +5,7 @@ from ..basics.utils import on_screen
 
 #region Rect
 class Rect(Node2D):
-    def __init__(self, pos, size, color, layer, show=True, ui=False):
+    def __init__(self, pos, size, color, layer=3, show=True, ui=False):
         super().__init__(pos, layer, ui, show)
         self._del_global_()
         try:
@@ -31,7 +31,7 @@ class Rect(Node2D):
 
 #region Circle
 class Circle(Node2D):
-    def __init__(self, pos, radius, color, layer, show=True, ui=False):
+    def __init__(self, pos, radius, color, layer=3, show=True, ui=False):
         super().__init__(pos, layer, ui, show)
         self._del_global_()
         try:

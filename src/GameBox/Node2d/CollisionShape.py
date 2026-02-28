@@ -4,31 +4,6 @@ from .Node2D import Node2D
 from ..basics.utils import on_screen
 from ..controle.Tree import Tree
 
-SHAPES = {CollisionShape_Rect}
-
-#region Area2D
-class Area2D(Node2D):
-    def __init__(self, pos, collisionShape, layer=3):
-        super().__init__(pos, layer, False, False)
-        self._del_global_()
-        try:
-            Global.objs[str(layer)].append(self)
-        except:
-            Global.errors.raiseError("Layer not found: " + str(layer), "Area2D")
-        if collisionShape not in SHAPES:
-            Global.errors.raiseError("Shape not found: " + f"{str(collisionShape)}: Type {type(collisionShape)}", "Area2D")
-        self.shape = collisionShape
-        self.tree = Tree(self, [self.shape])
-
-    def update(self):
-        pass
-
-    def delete(self):
-        Global.objs[str(self.layer)].remove(self)
-        del self.tree
-
-#endregion
-
 #region CollisionShape
 class CollisionShape(Node2D):
     def __init__(self, pos, dim, show=False):
@@ -54,5 +29,30 @@ class CollisionShape_Rect(CollisionShape):
     def delete(self):
         Global.objs[str(0)].remove(self)
         del Global.collision_shapes[self]
+#endregion
+
+SHAPES = {CollisionShape_Rect}
+
+#region Area2D
+class Area2D(Node2D):
+    def __init__(self, pos, collisionShape, layer=3):
+        super().__init__(pos, layer, False, False)
+        self._del_global_()
+        try:
+            Global.objs[str(layer)].append(self)
+        except:
+            Global.errors.raiseError("Layer not found: " + str(layer), "Area2D")
+        if collisionShape not in SHAPES:
+            Global.errors.raiseError("Shape not found: " + f"{str(collisionShape)}: Type {type(collisionShape)}", "Area2D")
+        self.shape = collisionShape
+        self.tree = Tree(self, [self.shape])
+
+    def update(self):
+        pass
+
+    def delete(self):
+        Global.objs[str(self.layer)].remove(self)
+        del self.tree
+
 #endregion
 

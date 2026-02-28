@@ -1,10 +1,10 @@
 import pygame
+import sys
 
 NAME = "GameBox"
 
-class Error(Exception):  # ← inherit from Exception
+class Error:  # ← inherit from Exception
     def __init__(self, message, dest):
-        super().__init__(message)
         self.message = message
         self.dest = dest
 
@@ -15,10 +15,12 @@ class Error(Exception):  # ← inherit from Exception
         return f"{NAME}: {self.dest}: {self.message}"
 
 def raiseError(message, dest):
-    raise Error(message, dest)
+    print(Error(message, dest))
+    sys.exit()
 
 def ValueError(message, dest):
-    print(f"{NAME}: {dest}: {message}")
+    print(Error(message, dest))
+    sys.exit()
 
 class Errors:
     def __init__(self):
