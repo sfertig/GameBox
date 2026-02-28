@@ -17,8 +17,11 @@ class CollisionShape(Node2D):
 class CollisionShape_Rect(CollisionShape):
     def __init__(self, pos, dim, show=False):
         super().__init__(pos, pygame.Vector2(dim), show)
-        Global.collision_shapes[self] = "rect"
+        Global.collision_shapes[self] = ""
         Global.objs[str(0)].append(self)
+
+    def get_rect(self):
+        return pygame.Rect(self.pos-self.dim/2, self.dim)
 
     def update(self):
         if self.show:
@@ -42,13 +45,26 @@ class Area2D(Node2D):
             Global.objs[str(layer)].append(self)
         except:
             Global.errors.raiseError("Layer not found: " + str(layer), "Area2D")
-        if collisionShape not in SHAPES:
+        if type(collisionShape) not in SHAPES:
             Global.errors.raiseError("Shape not found: " + f"{str(collisionShape)}: Type {type(collisionShape)}", "Area2D")
         self.shape = collisionShape
         self.tree = Tree(self, [self.shape])
 
+        #properties
+        self.overlapping = False
+
+
     def update(self):
-        pass
+        self.check_collision()
+
+    def check_collision(self):
+        for shape in Global.collision_shapes:
+            if shape != self.shape and type(shape) == CollisionShape_Rect:
+                if self.shape.get_rect().colliderect(shape.get_rect()):
+                    self.overlapping = True
+                    break
+                else:
+                    self.overlapping = False
 
     def delete(self):
         Global.objs[str(self.layer)].remove(self)

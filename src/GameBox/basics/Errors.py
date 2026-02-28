@@ -22,7 +22,11 @@ def ValueError(message, dest):
     print(Error(message, dest))
     sys.exit()
 
+def Message(message, dest):
+    print(Error(message, dest)) 
+
 class Errors:
     def __init__(self):
         self.raiseError = raiseError
         self.ValueError = ValueError
+        self.Message = Message

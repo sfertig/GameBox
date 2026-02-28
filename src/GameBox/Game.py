@@ -47,6 +47,16 @@ class Game:
 
     def get_screen(self): return self.screen
 
+    def _try_get_global_(self, name):
+        try:
+            return getattr(Global, name)
+        except:
+            Global.errors.raiseError("Global not found: " + name, "Game")
+
+    def _get_global_(self)->Global:
+        Global.errors.Message("Global allows accses to internals, for safer use use _try_get_global_ instead", "Game")
+        return Global
+
 
     def rescale(self, event):
         self.width = event.w
