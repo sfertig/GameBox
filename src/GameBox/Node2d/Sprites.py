@@ -2,6 +2,9 @@ import pygame
 from ..Net import Global
 from .Node2D import Node2D
 
+from ..basics.utils import on_screen
+
+
 def load_image(path):
     if isinstance(path, str):
         if path in Global.assets:
@@ -35,9 +38,13 @@ class Sprite2D(Node2D):
     def render(self):
         if not self.ui: sp = self.pos - Global.cam.pos
         else: sp = self.pos
-        Global.screen.blit(self.image, sp-pygame.Vector2(self.image.get_size())/2)
+        if on_screen(sp):
+            Global.screen.blit(self.image, sp-pygame.Vector2(self.image.get_size())/2)
 
     def rescale(self, scale):
         self.scale = scale
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * scale, self.image.get_height() * scale))
+    def scale_by(self, scale):
+        self.scale *= scale
+        self.image = pygame.transform.scale(self.image, (self.image.get_width() * self.scale, self.image.get_height() * self.scale))
 #endregion

@@ -1,6 +1,7 @@
 import pygame
 from .Node2D import Node2D
 from ..Net import Global
+from ..basics.utils import on_screen
 
 #region Rect
 class Rect(Node2D):
@@ -21,7 +22,8 @@ class Rect(Node2D):
     def render(self):
         if not self.ui: sp = self.pos - Global.cam.pos
         else: sp = self.pos
-        pygame.draw.rect(Global.screen, self.color, ((sp-self.size/2), self.size))
+        if on_screen(sp):
+            pygame.draw.rect(Global.screen, self.color, ((sp-self.size/2), self.size))
 #endregion
 
 #region Circle
@@ -43,5 +45,6 @@ class Circle(Node2D):
     def render(self):
         if not self.ui: sp = self.pos - Global.cam.pos
         else: sp = self.pos
-        pygame.draw.circle(Global.screen, self.color, sp, self.radius)
+        if on_screen(sp):
+            pygame.draw.circle(Global.screen, self.color, sp, self.radius)
 #endregion
