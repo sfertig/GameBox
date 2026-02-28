@@ -35,7 +35,8 @@ while True:
     if Keys.is_pressed(Keys.r): image.rescale(image.scale*2.0)
     if Keys.is_pressed(Keys.e): image.rescale(image.scale/2.0)
 
-    print(shape.overlapping)
+    if shape.areaEntered: print("area entered")
+    if shape.areaExited: print("area exited")
         
 
     game.update(events, fps=60)

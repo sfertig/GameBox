@@ -52,18 +52,27 @@ class Area2D(Node2D):
 
         #properties
         self.overlapping = False
+        self.areaEntered = False
+        self.areaExited = False
 
 
     def update(self):
         self.check_collision()
 
+
     def check_collision(self):
+        self.areaEntered = False
+        self.areaExited = False
         for shape in Global.collision_shapes:
             if shape != self.shape and type(shape) == CollisionShape_Rect:
                 if self.shape.get_rect().colliderect(shape.get_rect()):
+                    if not self.overlapping:
+                        self.areaEntered = True
                     self.overlapping = True
                     break
                 else:
+                    if self.overlapping:
+                        self.areaExited = True
                     self.overlapping = False
 
     def delete(self):
