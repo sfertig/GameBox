@@ -9,9 +9,8 @@ game = Game(width, height, "blue", "BasicScreen")
 cam = Camera()
 
 image = Sprite2D((0, 0), "tests/assets/coin.png")
-back = Circle((0, 0), 100, "red", 4)
-image.rescale(2.0)
-t = Tree(image, [back, Circle((0, 0), 125, "green", 5)])
+col = CollisionShape_Rect((0, 0), (100, 100), True)
+t = Tree(image, [col])
 
 
 speed = 5

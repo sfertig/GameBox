@@ -23,6 +23,8 @@ class _global_:
         self.events = None
         self.cam = None
 
+        self.collision_shapes = {}
+
         #errors
         self.errors = Errors()   
 

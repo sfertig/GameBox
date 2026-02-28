@@ -16,6 +16,7 @@ from .Node2d.Shapes import Rect, Circle
 from .controle.input import Keys
 from .controle.Tree import Tree
 from .Node2d.Sprites import Sprite2D
+from .Node2d.CollisionShape import CollisionShape_Rect
 
 __all__ = [
     "Game",
@@ -25,5 +26,6 @@ __all__ = [
     "Circle",
     "Keys",
     "Tree",
-    "Sprite2D"
+    "Sprite2D",
+    "CollisionShape_Rect"
     ]
