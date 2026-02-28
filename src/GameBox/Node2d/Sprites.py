@@ -47,4 +47,7 @@ class Sprite2D(Node2D):
     def scale_by(self, scale):
         self.scale *= scale
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * self.scale, self.image.get_height() * self.scale))
+
+    def delete(self):
+        Global.objs[str(self.layer)].remove(self)
 #endregion

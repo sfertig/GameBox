@@ -24,6 +24,9 @@ class Rect(Node2D):
         else: sp = self.pos
         if on_screen(sp):
             pygame.draw.rect(Global.screen, self.color, ((sp-self.size/2), self.size))
+
+    def delete(self):
+        Global.objs[str(self.layer)].remove(self)
 #endregion
 
 #region Circle
@@ -47,4 +50,7 @@ class Circle(Node2D):
         else: sp = self.pos
         if on_screen(sp):
             pygame.draw.circle(Global.screen, self.color, sp, self.radius)
+
+    def delete(self):
+        Global.objs[str(self.layer)].remove(self)
 #endregion

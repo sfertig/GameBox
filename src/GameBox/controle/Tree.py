@@ -24,3 +24,4 @@ class Tree:
 
     def _del_global_(self):
         Global.objs["0"].remove(self)
+
