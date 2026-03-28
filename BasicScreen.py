@@ -9,10 +9,18 @@ g = game._get_global_()
 
 cam = Camera()
 
+def entered(): print("entered")
+def exited(): print("exited")
 
-shape = Area2D((0, 0), col)
 
-shape2 = CollisionShape_Rect((width/2, height/2), (50, 50))
+image = Area2D((0, 0), CollisionShape_Rect((0, 0), (100, 100)))
+image_texture = Rect((0, 0), (100, 100), "red")
+t = Tree(image, [image_texture])
+
+image.areaEnteredSignal.connect(entered)
+image.areaExitedSignal.connect(exited)
+
+shape2 = Area2D((width/2, height/2), CollisionShape_Rect((0, 0), (50, 50)))
 rect = Rect((width/2, height/2), (50, 50), "red")
 
 
@@ -22,6 +30,7 @@ while True:
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.QUIT:
+            print("sys exit")
             game.quit()
             pygame.quit()
             sys.exit()
@@ -30,11 +39,6 @@ while True:
     if Keys.is_held(Keys.a): image.pos.x -= speed
     if Keys.is_held(Keys.w): image.pos.y -= speed
     if Keys.is_held(Keys.s): image.pos.y += speed
-    if Keys.is_pressed(Keys.r): image.rescale(image.scale*2.0)
-    if Keys.is_pressed(Keys.e): image.rescale(image.scale/2.0)
-
-    if shape.areaEntered: print("area entered")
-    if shape.areaExited: print("area exited")
         
 
     game.update(events, fps=60)

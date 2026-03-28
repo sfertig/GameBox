@@ -3,6 +3,8 @@ from ..Net import Global
 from .Node2D import Node2D
 from ..basics.utils import on_screen
 from ..controle.Tree import Tree
+from ..controle.signals import Signal
+
 
 #region CollisionShape
 class CollisionShape(Node2D):
@@ -54,6 +56,10 @@ class Area2D(Node2D):
         self.overlapping = False
         self.areaEntered = False
         self.areaExited = False
+
+        #signals
+        self.areaEnteredSignal = Signal([self.areaEntered], None, [])
+        self.areaExitedSignal = Signal([self.areaExited], None, [])
 
 
     def update(self):

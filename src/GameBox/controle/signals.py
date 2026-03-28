@@ -6,7 +6,15 @@ class Signal:
         self.listners = listners
         self.connection = connection
         self.args = args
-        Global.objs["Sig"].append(self)
+        Global.objs["0"].append(self)
+
+    def connect(self, connection, args=[]):
+        self.connection = connection
+        if args is not False:
+            self.args = args
+
+    def add_args(self, args):
+        self.args.append(args)
 
     def update(self):
         if not self.connection:
