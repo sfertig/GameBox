@@ -18,7 +18,7 @@ class _global_:
 
         #game info and data
         #objs in layers 1-5
-        self.objs = {"0":[], "1":[], "2":[], "3":[], "4":[], "5":[]}
+        self.objs = {"0":[], "1":[], "2":[], "3":[], "4":[], "5":[], "Sig": []}
         self.events = None
         self.cam = None
 
