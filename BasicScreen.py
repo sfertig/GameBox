@@ -9,13 +9,11 @@ g = game._get_global_()
 
 cam = Camera()
 
-image = Sprite2D((0, 0), "tests/assets/coin.png")
-col = CollisionShape_Rect((0, 0), (100, 100), True)
-print(g.collision_shapes)
-shape = Area2D((0, 0), col)
-t = Tree(image, [shape])
 
-shape2 = CollisionShape_Rect((width/2, height/2), (100, 100), True)
+shape = Area2D((0, 0), col)
+
+shape2 = CollisionShape_Rect((width/2, height/2), (50, 50))
+rect = Rect((width/2, height/2), (50, 50), "red")
 
 
 speed = 5
